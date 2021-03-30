@@ -27,5 +27,5 @@ We'll be creating a simple to use API to give you access to the following featur
 - Custom commands through simple to use attributes and preconditions.
 - Querying the permissions service and adding custom permissions.
 - Implementing custom logging of your addon's events through Overwλtch
+- Access to custom events used by Overwλtch with possibility of overriding results.
 - And more down the line!
-
