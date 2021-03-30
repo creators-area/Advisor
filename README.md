@@ -12,8 +12,8 @@ As such, there likely won't be a lot of networking, UI, or data storage involved
 
 Overwλtch (read: Overwatch) is an administration addon in heavily development, built to provide the following features to your servers:
 
-- Permissions systems with roles based access to commands.
-- Moderation commands
+- Permissions systems with role based access to commands.
+- Moderation commands.
 - Full administrative control of your server, in-game, through a panel.
 - Bans, kicks, either permanent or timed, as well as muting players.
 - Logging of user actions such as joining, leaving, chat messages, kills, bans and more.
