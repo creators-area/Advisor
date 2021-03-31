@@ -35,6 +35,7 @@ We'll be creating a simple to use API to give you access to the following featur
 ## Special Thanks
 
 This addon is under development in collaboration with the community at Game Creators Area.
+
 *Do note the community there mostly speaks French.*
 
 ![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
