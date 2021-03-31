@@ -1,7 +1,7 @@
-*Pour la version française: [LISEZ-MOI.MD](https://github.com/game-creators-area/Overwatch/blob/master/LISEZ-MOI.MD)*
+*Pour la version française: [LISEZ-MOI.MD](https://github.com/game-creators-area/Advisor/blob/master/LISEZ-MOI.MD)*
 
 
-# Overwλtch
+# λdvisor
 An open source and expandable administration framework for your S&amp;box servers and addons.
 
 ## But wait, S&box isn't out yet?!
@@ -11,9 +11,9 @@ As such, there likely won't be a lot of networking, UI, or data storage involved
 
 *Psst Garry, help some developers out will ya?*
 
-## What is Overwλtch?
+## What is λdvisor?
 
-Overwλtch (read: Overwatch) is an administration addon in heavily development, built to provide the following features to your servers:
+λdvisor (read: Advisor) is an administration addon in heavily development, built to provide the following features to your servers:
 
 - Permissions systems with role based access to commands.
 - Moderation commands.
@@ -22,12 +22,12 @@ Overwλtch (read: Overwatch) is an administration addon in heavily development, 
 
 As well as more down the line once we get more access to S&box. We're open for suggestions!
 
-## I'm a developer, what would Overwλtch bring to me?
+## I'm a developer, what would λdvisor bring to me?
 
 We'll be creating a simple to use API to give you access to the following features:
 
 - Custom commands through simple to use attributes and preconditions.
 - Querying the permissions service and adding custom permissions.
 - Implementing custom logging of your addon's events.
-- Access to custom events used by Overwλtch with possibility of overriding results.
+- Access to custom events used by λdvisor with possibility of overriding results.
 - And more down the line!
