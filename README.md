@@ -1,3 +1,6 @@
+*Pour la version française: LISEZ-MOI.MD*
+
+
 # Overwλtch
 An open source and expandable administration framework for your S&amp;box servers and addons.
 
@@ -15,7 +18,6 @@ Overwλtch (read: Overwatch) is an administration addon in heavily development, 
 - Permissions systems with role based access to commands.
 - Moderation commands.
 - Full administrative control of your server, in-game, through a panel.
-- Bans, kicks, either permanent or timed, as well as muting players.
 - Logging of user actions such as joining, leaving, chat messages, kills, bans and more.
 
 As well as more down the line once we get more access to S&box. We're open for suggestions!
@@ -26,6 +28,6 @@ We'll be creating a simple to use API to give you access to the following featur
 
 - Custom commands through simple to use attributes and preconditions.
 - Querying the permissions service and adding custom permissions.
-- Implementing custom logging of your addon's events through Overwλtch
+- Implementing custom logging of your addon's events.
 - Access to custom events used by Overwλtch with possibility of overriding results.
 - And more down the line!

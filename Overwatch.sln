@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overwatch", "Overwatch\Overwatch.csproj", "{71386308-0D77-43F4-BCDF-E0CAFCE3CE63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overwatch.Commands", "Overwatch.Commands\Overwatch.Commands.csproj", "{BDD54545-1CB9-48A3-9EE2-75D399F64C52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71386308-0D77-43F4-BCDF-E0CAFCE3CE63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71386308-0D77-43F4-BCDF-E0CAFCE3CE63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71386308-0D77-43F4-BCDF-E0CAFCE3CE63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71386308-0D77-43F4-BCDF-E0CAFCE3CE63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDD54545-1CB9-48A3-9EE2-75D399F64C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDD54545-1CB9-48A3-9EE2-75D399F64C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDD54545-1CB9-48A3-9EE2-75D399F64C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDD54545-1CB9-48A3-9EE2-75D399F64C52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
