@@ -1,4 +1,4 @@
-*Pour la version française: LISEZ-MOI.MD*
+*Pour la version française: [LISEZ-MOI.MD](https://github.com/game-creators-area/Overwatch/blob/master/LISEZ-MOI.MD)*
 
 
 # Overwλtch
