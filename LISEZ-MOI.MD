@@ -1,4 +1,4 @@
-*For the English version, check README.MD*
+*For the English version, check [README.MD](https://github.com/game-creators-area/Overwatch/blob/master/README.md)*
 
 # Overwλtch
 
