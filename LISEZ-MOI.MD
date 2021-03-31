@@ -31,3 +31,9 @@ Nous vous donnerons accès à une API simple d'utilisation avec les fonctionnali
 - Des logs personnalisables pour les évènements de vos addons.
 - Accès aux évènements d'Advisor avec possibilité de modifier le fonctionnement.
 - Et plus encore!
+
+## Remerciements
+
+Cet addon est développé en collaboration avec la communauté Game Creators Area.
+
+![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
