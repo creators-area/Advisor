@@ -22,7 +22,7 @@ Donc, nous n'aurons probablement pas beaucoup d'implémentation réseau, graphiq
 Ainsi que plus encore lorsque nous aurons accès à S&box. Nous sommes ouverts pour des suggestions!
   
 
-## Je suis un(e) développeur/développeuse, qu'est ce qu'λdvisor peut m'apporter?
+## Je suis un/une développeur/développeuse, qu'est ce qu'λdvisor peut m'apporter?
 
 Nous vous donnerons accès à une API simple d'utilisation avec les fonctionnalités suivantes:
 
