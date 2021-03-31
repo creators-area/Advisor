@@ -31,3 +31,8 @@ We'll be creating a simple to use API to give you access to the following featur
 - Implementing custom logging of your addon's events.
 - Access to custom events used by λdvisor with possibility of overriding results.
 - And more down the line!
+
+## Special Thanks
+
+This addon is under development in collaboration with the community at Game Creators Area.
+![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
