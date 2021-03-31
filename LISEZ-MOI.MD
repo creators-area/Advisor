@@ -43,6 +43,5 @@ De grands remerciements aux développeurs dans le serveur officiel de Facepunch,
 *NB: Ces deux serveurs sont anglais.*
 
 ![Discord Shield](https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1)
-
 ![Discord Shield](https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1)
 
