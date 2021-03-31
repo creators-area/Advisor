@@ -37,3 +37,10 @@ Nous vous donnerons accès à une API simple d'utilisation avec les fonctionnali
 Cet addon est développé en collaboration avec la communauté Game Creators Area.
 
 ![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
+
+De grands remerciements aux développeurs dans le serveur officiel de Facepunch, et aussi la [commaunauté S&box Modding](https://discord.gg/K4Jv7G3WUw)!
+
+*NB: Ces deux serveurs sont anglais.*
+
+![Discord Shield](https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1)
+
