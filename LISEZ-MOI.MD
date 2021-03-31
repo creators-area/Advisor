@@ -38,9 +38,11 @@ Cet addon est développé en collaboration avec la communauté (FR) Game Creator
 
 ![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
 
-De grands remerciements aux développeurs dans le serveur officiel de Facepunch, et aussi la [communauté S&box Modding](https://discord.gg/K4Jv7G3WUw)!
+De grands remerciements aux développeurs dans le serveur officiel de Facepunch, et aussi la communauté S&box Modding!
 
 *NB: Ces deux serveurs sont anglais.*
 
 ![Discord Shield](https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1)
+
+![Discord Shield](https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1)
 
