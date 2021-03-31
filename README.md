@@ -38,9 +38,9 @@ This addon is under development in collaboration with the community at Game Crea
 
 *Do note the community there mostly speaks French.*
 
-![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
+[<img src="https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1">](https://discord.gg/gca)
 
 Many thanks to the friendly developers at the official Facepunch Discord server, as well as the community S&box Modding server!
 
-![Discord Shield](https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1)
-![Discord Shield](https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1)
+[<img src="https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1">](https://discord.gg/facepunch)
+[<img src="https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1">](https://discord.gg/K4Jv7G3WUw)
