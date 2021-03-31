@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overwatch", "Overwatch\Overwatch.csproj", "{71386308-0D77-43F4-BCDF-E0CAFCE3CE63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advisor", "Advisor\Advisor.csproj", "{71386308-0D77-43F4-BCDF-E0CAFCE3CE63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overwatch.Commands", "Overwatch.Commands\Overwatch.Commands.csproj", "{BDD54545-1CB9-48A3-9EE2-75D399F64C52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advisor.Commands", "Advisor.Commands\Advisor.Commands.csproj", "{BDD54545-1CB9-48A3-9EE2-75D399F64C52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
