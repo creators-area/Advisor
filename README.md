@@ -39,6 +39,8 @@ This addon is under development in collaboration with the community at Game Crea
 
 ![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
 
-Many thanks to the friendly developers at the official Facepunch Discord server, as well as the [community S&box Modding server](https://discord.gg/K4Jv7G3WUw)!
+Many thanks to the friendly developers at the official Facepunch Discord server, as well as the community S&box Modding server!
 
 ![Discord Shield](https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1)
+
+![Discord Shield](https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1)
