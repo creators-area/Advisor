@@ -34,7 +34,7 @@ Nous vous donnerons accès à une API simple d'utilisation avec les fonctionnali
 
 ## Remerciements
 
-Cet addon est développé en collaboration avec la communauté Game Creators Area.
+Cet addon est développé en collaboration avec la communauté (FR) Game Creators Area.
 
 ![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
 
