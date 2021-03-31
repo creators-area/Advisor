@@ -15,11 +15,8 @@ Donc, nous n'aurons probablement pas beaucoup d'implémentation réseau, graphiq
 Overwλtch (lire: Overwatch) est un addon d'administration qui est en développement intensif, créé pour ajouter les fonctionalités suivantes à vos serveurs:  
 
 - Système de permissions via des rôles attribués aux joueurs.
-
 - Commandes et outils de modération.
-
 - Accès administratif complet à votre serveur, via un panel en jeu.
-
 - Logging des actions des joueurs comme les (dé)connexions, messages, kills, bans et plus encore.
 
 Ainsi que plus encore lorsque nous aurons accès à S&box. Nous sommes ouverts pour des suggestions!
@@ -30,11 +27,7 @@ Ainsi que plus encore lorsque nous aurons accès à S&box. Nous sommes ouverts p
 Nous vous donnerons accès à une API simple d'utilisation avec les fonctionnalités suivantes:
 
 - Création de commandes personnalisables via des attributs et préconditions.
-
 - Vérification des permissions d'un joueur et création de permissions.
-
 - Des logs personnalisables pour les évènements de vos addons.
-
 - Accès aux évènements d'Overwatch avec possibilité de modifier le fonctionnement.
-
 - Et plus encore!
