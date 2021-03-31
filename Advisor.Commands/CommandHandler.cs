@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Overwatch.Commands.Attributes;
-using Overwatch.Commands.Enums;
+using Advisor.Commands.Attributes;
+using Advisor.Commands.Enums;
 
 
-namespace Overwatch.Commands
+namespace Advisor.Commands
 {
     public class CommandHandler
     {

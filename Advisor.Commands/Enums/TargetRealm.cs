@@ -1,4 +1,4 @@
-﻿namespace Overwatch.Commands.Enums
+﻿namespace Advisor.Commands.Enums
 {
     public enum TargetRealm
     {

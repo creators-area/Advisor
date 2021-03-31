@@ -1,7 +1,7 @@
 ﻿using System;
-using Overwatch.Commands.Enums;
+using Advisor.Commands.Enums;
 
-namespace Overwatch.Commands.Attributes
+namespace Advisor.Commands.Attributes
 {
     /// <summary>
     /// Marks a method as an ingame command callable by clients with permission.

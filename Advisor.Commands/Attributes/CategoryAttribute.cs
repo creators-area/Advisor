@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Overwatch.Commands.Attributes
+namespace Advisor.Commands.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class CategoryAttribute : Attribute

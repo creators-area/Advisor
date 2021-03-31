@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Overwatch
+namespace Advisor
 {
-    public class OverwatchAddon
+    public class AdvisorAddon
     {
         
     }

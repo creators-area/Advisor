@@ -1,4 +1,4 @@
-﻿namespace Overwatch.Commands
+﻿namespace Advisor.Commands
 {
     /// <summary>
     /// The base class for any module meant to create Overwatch commands.
