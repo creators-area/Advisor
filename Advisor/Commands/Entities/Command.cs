@@ -33,8 +33,13 @@ namespace Advisor.Commands.Entities
 
         /// <summary>
         /// The category this command belongs to, set in the ParentModule.
-        /// If none is set (or an invalid one is set), this command will be under 'Uncategorized'
+        /// If empty or invalid, this command will be under 'Uncategorized'
         /// </summary>
         public string Category => ParentModule?.Category ?? "Uncategorized";
+        
+        /// <summary>
+        /// The arguments of this command.
+        /// </summary>
+        public IReadOnlyList<CommandArgument> Arguments { get; internal set; }
     }
 }

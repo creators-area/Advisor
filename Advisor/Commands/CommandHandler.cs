@@ -73,7 +73,7 @@ namespace Advisor.Commands
             }
             
             _loadedModules.Add(type, module);
-            
+
             // Register every declared method that fits a command's signature (Context + other arguments).
         }
     }

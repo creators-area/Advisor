@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Advisor.Commands.Attributes;
 
 namespace Advisor.Commands.Entities
 {
