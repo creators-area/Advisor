@@ -1,5 +1,7 @@
 *For the English version, check [README.MD](https://github.com/game-creators-area/Advisor/blob/master/README.md)*
 
+![image](https://user-images.githubusercontent.com/25248023/113520130-542d8d00-9591-11eb-8104-d5abd8ecb660.png)
+
 # λdvisor
 
 Un framework d'administration open-source et extensible pour vos addons et serveurs S&box.
