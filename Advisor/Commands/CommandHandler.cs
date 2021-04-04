@@ -13,6 +13,8 @@ namespace Advisor.Commands
         private List<Command> _commands;
         private Dictionary<Type, CommandModule> _loadedModules;
         
+        private Dictionary<Type, ArgumentConverter>
+        
         public CommandHandler(AdvisorAddon advisor)
         {
             _advisor = advisor;
