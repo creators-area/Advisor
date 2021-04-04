@@ -8,6 +8,11 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public interface IArgumentConverter
     {
+        /// <summary>
+        /// Returns the type that this converter handles.
+        /// </summary>
+        public Type GetConvertedType();
+        
         // TODO: Pass in the context as an argument. Could be useful for converting arguments differently based on context.
         // Or also to get an easier access to Advisor or S&box.
         

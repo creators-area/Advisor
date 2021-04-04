@@ -26,7 +26,8 @@ namespace Advisor
             _commandHandler = new CommandHandler(this);
             _services.AddService(typeof(CommandHandler), _commandHandler);
 
-            // Register Advisor's commands.
+            // Register Advisor's argument converters and commands.
+            _commandHandler.RegisterArgumentConverters(Assembly.GetExecutingAssembly());
             _commandHandler.RegisterCommandModules(Assembly.GetExecutingAssembly());
         }
     }

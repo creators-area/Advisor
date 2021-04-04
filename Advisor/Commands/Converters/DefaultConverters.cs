@@ -8,6 +8,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class BoolConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(bool);
+        
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (input == null)
@@ -50,6 +52,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class ByteConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(byte);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (byte.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out byte b))
@@ -66,6 +70,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class SByteConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(sbyte);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (sbyte.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out sbyte sb))
@@ -82,6 +88,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class ShortConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(short);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (short.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out short s))
@@ -98,6 +106,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class UShortConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(ushort);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (ushort.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out ushort us))
@@ -114,6 +124,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class IntConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(int);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (int.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out int i))
@@ -130,6 +142,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class UIntConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(uint);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (uint.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out uint ui))
@@ -146,6 +160,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class LongConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(long);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (long.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out long l))
@@ -162,6 +178,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class ULongConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(ulong);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (ulong.TryParse(input, NumberStyles.Integer , CultureInfo.InvariantCulture, out ulong ul))
@@ -178,6 +196,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class FloatConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(float);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (float.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out float f))
@@ -194,6 +214,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class DoubleConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(double);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (double.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out double d))
@@ -210,6 +232,8 @@ namespace Advisor.Commands.Converters
     /// </summary>
     public class DecimalConverter : IArgumentConverter
     {
+        public Type GetConvertedType() => typeof(decimal);
+
         public ArgumentConverterResult ConvertArgument(string input)
         {
             if (decimal.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal d))
