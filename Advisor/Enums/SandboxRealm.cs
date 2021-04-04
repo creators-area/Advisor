@@ -1,6 +1,6 @@
-﻿namespace Advisor.Commands.Enums
+﻿namespace Advisor.Enums
 {
-    public enum TargetRealm
+    public enum SandboxRealm
     {
         /// <summary>
         /// Runs the command on the calling client, after verifying the user has access to it serverside.

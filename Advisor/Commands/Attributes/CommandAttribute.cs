@@ -1,5 +1,5 @@
 ﻿using System;
-using Advisor.Commands.Enums;
+using Advisor.Enums;
 
 namespace Advisor.Commands.Attributes
 {
@@ -17,12 +17,12 @@ namespace Advisor.Commands.Attributes
         /// <summary>
         /// The realm on which this command will be executed.
         /// </summary>
-        public TargetRealm ExecutionTarget { get; }
+        public SandboxRealm ExecutionRealm { get; }
 
-        public CommandAttribute(string name, TargetRealm executesOn)
+        public CommandAttribute(string name, SandboxRealm executesOn)
         {
             Name = name;
-            ExecutionTarget = executesOn;
+            ExecutionRealm = executesOn;
         }
     }
 }

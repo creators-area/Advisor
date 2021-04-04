@@ -12,7 +12,14 @@ namespace Advisor.Commands.Attributes
 
         public CategoryAttribute(string displayName)
         {
-            Name = displayName;
+            if (string.IsNullOrWhiteSpace(displayName))
+            {
+                Name = "Uncategorized";
+            }
+            else
+            {
+                Name = displayName.Trim();
+            }
         }
     }
 }
