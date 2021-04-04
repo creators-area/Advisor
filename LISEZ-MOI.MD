@@ -22,7 +22,7 @@ Donc, nous n'aurons probablement pas beaucoup d'implémentation réseau, graphiq
 Ainsi que plus encore lorsque nous aurons accès à S&box. Nous sommes ouverts pour des suggestions!
   
 
-## Je suis un(e) développeur/développeuse, qu'est ce qu'λdvisor peut m'apporter?
+## Je suis un/une développeur/développeuse, qu'est ce qu'λdvisor peut m'apporter?
 
 Nous vous donnerons accès à une API simple d'utilisation avec les fonctionnalités suivantes:
 
@@ -36,12 +36,11 @@ Nous vous donnerons accès à une API simple d'utilisation avec les fonctionnali
 
 Cet addon est développé en collaboration avec la communauté (FR) Game Creators Area.
 
-![Discord Shield](https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1)
+[<img src="https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1">](https://discord.gg/gca)
 
 De grands remerciements aux développeurs dans le serveur officiel de Facepunch, et aussi la communauté S&box Modding!
 
 *NB: Ces deux serveurs sont anglais.*
 
-![Discord Shield](https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1)
-![Discord Shield](https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1)
-
+[<img src="https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1">](https://discord.gg/facepunch)
+[<img src="https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1">](https://discord.gg/K4Jv7G3WUw)
