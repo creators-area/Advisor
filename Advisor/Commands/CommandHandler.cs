@@ -36,7 +36,8 @@ namespace Advisor.Commands
             }
 
             var converters = assembly.GetTypes()
-                .Where(t => typeof(IArgumentConverter).IsAssignableFrom(t))
+                .Where(t => typeof(IArgumentConverter).IsAssignableFrom(t)
+                            && !t.IsNested && t.IsPublic && !t.IsInterface)
                 .ToList();
 
             foreach (var type in converters)
