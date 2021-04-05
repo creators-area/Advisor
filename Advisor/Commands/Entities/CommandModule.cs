@@ -18,5 +18,11 @@ namespace Advisor.Commands.Entities
         /// Commands registered from this command module.
         /// </summary>
         public IReadOnlyList<Command> Commands { get; internal set; }
+
+        internal CommandModule()
+        {
+            Commands = new List<Command>();
+            Category = "Uncategorized";
+        }
     }
 }

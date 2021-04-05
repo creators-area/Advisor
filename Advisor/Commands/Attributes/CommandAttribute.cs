@@ -21,7 +21,16 @@ namespace Advisor.Commands.Attributes
 
         public CommandAttribute(string name, SandboxRealm executesOn)
         {
-            Name = name;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                // This will throw on command registration.
+                Name = null;
+            }
+            else
+            {
+                Name = name.Trim();
+            }
+            
             ExecutionRealm = executesOn;
         }
     }

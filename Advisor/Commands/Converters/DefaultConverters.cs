@@ -244,4 +244,37 @@ namespace Advisor.Commands.Converters
             return ArgumentConverterResult.Failed();
         }
     }
+
+    /// <summary>
+    /// For simplicity's sake, so I don't have to check parameter types all the time.
+    /// </summary>
+    public class StringConverter : IArgumentConverter
+    {
+        public Type GetConvertedType() => typeof(string);
+
+        public ArgumentConverterResult ConvertArgument(string input)
+        {
+            return string.IsNullOrWhiteSpace(input)
+                ? ArgumentConverterResult.FromSuccess(input)
+                : ArgumentConverterResult.Failed();
+        }
+    }
+
+    /// <summary>
+    /// Converts a string argument intto a char. 
+    /// </summary>
+    public class CharConverter : IArgumentConverter
+    {
+        public Type GetConvertedType() => typeof(char);
+
+        public ArgumentConverterResult ConvertArgument(string input)
+        {
+            if (char.TryParse(input, out char c))
+            {
+                return ArgumentConverterResult.FromSuccess(c);
+            }
+
+            return ArgumentConverterResult.Failed();
+        }
+    }
 }
