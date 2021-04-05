@@ -18,7 +18,7 @@ Donc, nous n'aurons probablement pas beaucoup d'implémentation réseau, graphiq
 
 - Système de permissions via des rôles attribués aux joueurs.
 - Commandes et outils de modération.
-- Accès administratif complet à votre serveur, via un panel en jeu.
+- Accès administratif complet à votre serveur, via un menu en jeu.
 - Logging des actions des joueurs comme les (dé)connexions, messages, kills, bans et plus encore.
 
 Ainsi que plus encore lorsque nous aurons accès à S&box. Nous sommes ouverts pour des suggestions!
