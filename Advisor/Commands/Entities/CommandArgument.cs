@@ -17,7 +17,14 @@ namespace Advisor.Commands.Entities
         
         /// <summary>
         /// Whether or not this argument encapsulates the remaining text after the first arguments.
+        /// Only available for string arguments.
         /// </summary>
         public bool Remainder { get; internal set; }
+        
+        /// <summary>
+        /// Whether or not this argument has a variable number of arguments.
+        /// If so, the command arguments will be read and parsed into an array until there are none left or they cannot be parsed.
+        /// </summary>
+        public bool IsParams { get; internal set; }
     }
 }

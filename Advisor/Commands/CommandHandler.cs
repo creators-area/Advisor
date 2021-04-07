@@ -226,19 +226,13 @@ namespace Advisor.Commands
                 for (int i = 1; i < cmdParameters.Length; i++)
                 {
                     var param = cmdParameters[i];
-
+                    
                     if (param.IsIn || param.IsOut)
                     {
                         throw new InvalidOperationException("Commands do not support in/out parameters.");
                     }
                     
-                    if (!_converters.ContainsKey(param.ParameterType))
-                    {
-                        throw new InvalidOperationException(
-                            $"Command '{info.Name}' of module '{module.GetType().Name}' has parameter '{param.Name ?? "null"}' with no IArgumentConverter registered for its type ({param.ParameterType.Name})");
-                    }
-                    
-                    var remainder = param.GetCustomAttribute<RemainderAttribute>() != null;
+                    var remainder = param.IsDefined(typeof(RemainderAttribute));
                     
                     // Only the last argument can be catch all.
                     if (remainder && i != cmdParameters.Length - 1)
@@ -247,11 +241,38 @@ namespace Advisor.Commands
                             $"Only the last parameter of a command can have the RemainderAttribute (in command '{info.Name}' of module '{module.GetType().Name}')");
                     }
 
+                    if (remainder && param.ParameterType != typeof(string))
+                    {
+                        throw new InvalidOperationException(
+                            $"Only an argument of type string can have the RemainderAttribute (in command '{info.Name}' of module '{module.GetType().Name}')");
+                    }
+                    
+                    var argType = param.ParameterType;
+                    var isParams = false;
+                    
+                    if (param.IsDefined(typeof(ParamArrayAttribute)))
+                    {
+                        isParams = true;
+                        argType = param.ParameterType.GetElementType();
+                        if (argType == null)
+                        {
+                            throw new InvalidOperationException(
+                                $"Command '{info.Name}' of module '{module.GetType().Name}' has a params argument with an invalid element type.");
+                        }
+                    }
+                    
+                    if (!_converters.ContainsKey(argType))
+                    {
+                        throw new InvalidOperationException(
+                            $"Command '{info.Name}' of module '{module.GetType().Name}' has parameter '{param.Name ?? "null"}' with no IArgumentConverter registered for its type ({argType.Name})");
+                    }
+
                     var arg = new CommandArgument
                     {
                         ArgumentType = param.ParameterType,
                         Parameter = param,
                         Remainder = remainder,
+                        IsParams = isParams,
                     };
                     
                     commandArguments.Add(arg);
@@ -290,18 +311,21 @@ namespace Advisor.Commands
                 .Concat(new[] { info.ReturnType })
                 .ToArray();
             
-            if (commandArguments.Any())
+            if (commandArguments.Count > 1)
             {
-                // For DynamicInvoke.
+                // Not as fast as a known delegate signature, and requires executing the command with DynamicInvoke().
+                // TODO: Benchmark this.
                 var delType = Expression.GetDelegateType(paramTypes);
                 cmd.MethodDelegate = Delegate.CreateDelegate(delType, module, info);   
             }
             else
             {
                 // No arguments means we know exactly the type of the delegate and can build it that way.
-                // Faster than DynamicInvoke.
+                // Faster to execute than DynamicInvoke on an arbitrary delegate.
                 cmd.MethodDelegateNoParams = info.CreateDelegate<Action<CommandContext>>(module);
             }
+            
+            // TODO: Maybe add a CommandContext, TargetPlayer overload? If the performance is worth it over dyn invoke.
             
             // Check if any command in the module have the same name and add it as an overload if so.
             var existingCommand = module.Commands

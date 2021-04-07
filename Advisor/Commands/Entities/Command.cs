@@ -82,6 +82,11 @@ namespace Advisor.Commands.Entities
 
         internal void ExecuteCommand(object[] args)
         {
+            if (args.Length == 0 || args[0] is not CommandContext)
+            {
+                throw new ArgumentException("Args must have a CommandContext as its first argument.");
+            }
+            
             if (MethodDelegate != null)
             {
                 MethodDelegate.DynamicInvoke(args);
