@@ -18,7 +18,7 @@ As such, there likely won't be a lot of networking, UI, or data storage involved
 
 - Permissions systems with role based access to commands.
 - Moderation commands.
-- Full administrative control of your server, in-game, through a panel.
+- Full administrative control of your server through an in-game menu.
 - Logging of user actions such as joining, leaving, chat messages, kills, bans and more.
 
 As well as more down the line once we get more access to S&box. We're open for suggestions!
