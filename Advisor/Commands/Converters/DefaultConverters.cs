@@ -9,6 +9,8 @@ namespace Advisor.Commands.Converters
     public class BoolConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(bool);
+
+        public string GetFriendlyTypeName() => "boolean";
         
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -53,6 +55,9 @@ namespace Advisor.Commands.Converters
     public class ByteConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(byte);
+        
+        public string GetFriendlyTypeName() => "number [0 to 255]";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -71,6 +76,9 @@ namespace Advisor.Commands.Converters
     public class SByteConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(sbyte);
+        
+        public string GetFriendlyTypeName() => "number [-128 to 127]";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -89,6 +97,9 @@ namespace Advisor.Commands.Converters
     public class ShortConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(short);
+        
+        public string GetFriendlyTypeName() => "number [-32,768 to 32,767]";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -107,6 +118,9 @@ namespace Advisor.Commands.Converters
     public class UShortConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(ushort);
+        
+        public string GetFriendlyTypeName() => "number [0 to 65535]";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -125,6 +139,9 @@ namespace Advisor.Commands.Converters
     public class IntConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(int);
+        
+        // Yeah I'm not gonna keep going. At this point, it's just a number.
+        public string GetFriendlyTypeName() => "number";
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -143,6 +160,9 @@ namespace Advisor.Commands.Converters
     public class UIntConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(uint);
+        
+        public string GetFriendlyTypeName() => "positive number";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -161,6 +181,8 @@ namespace Advisor.Commands.Converters
     public class LongConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(long);
+        
+        public string GetFriendlyTypeName() => "number";
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -179,6 +201,9 @@ namespace Advisor.Commands.Converters
     public class ULongConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(ulong);
+        
+        public string GetFriendlyTypeName() => "positive number";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -197,6 +222,9 @@ namespace Advisor.Commands.Converters
     public class FloatConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(float);
+        
+        public string GetFriendlyTypeName() => "decimal";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -215,6 +243,8 @@ namespace Advisor.Commands.Converters
     public class DoubleConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(double);
+        
+        public string GetFriendlyTypeName() => "decimal";
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -233,6 +263,9 @@ namespace Advisor.Commands.Converters
     public class DecimalConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(decimal);
+        
+        public string GetFriendlyTypeName() => "decimal";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -251,6 +284,9 @@ namespace Advisor.Commands.Converters
     public class StringConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(string);
+        
+        public string GetFriendlyTypeName() => "text";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
@@ -266,6 +302,9 @@ namespace Advisor.Commands.Converters
     public class CharConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(char);
+        
+        public string GetFriendlyTypeName() => "character";
+
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
