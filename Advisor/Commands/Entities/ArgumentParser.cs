@@ -153,7 +153,8 @@ namespace Advisor.Commands.Entities
                         }
 
                         objects.Add(result.Result);
-                    }
+                        return ArgumentParserResult.FromSuccess(objects.ToArray());
+                    }                    
                     
                     // Loop through the remaining raw arguments and add them to an array.
                     if (arg.IsParams)
@@ -172,7 +173,17 @@ namespace Advisor.Commands.Entities
                         }
                         
                         objects.Add(paramsObjects.ToArray());
+                        return ArgumentParserResult.FromSuccess(objects.ToArray());
                     }
+                    
+                    // Just read this object in this case.
+                    var converted = arg.Converter.ConvertArgument(rawArg);
+                    if (!converted.IsSuccessful)
+                    {
+                        return ArgumentParserResult.FromFailure($"Failed to parse '{rawArg}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
+                    }
+                    
+                    objects.Add(converted.Result);
                 }
 
                 current++;
