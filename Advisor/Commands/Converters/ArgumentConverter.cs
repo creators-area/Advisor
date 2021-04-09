@@ -12,6 +12,11 @@ namespace Advisor.Commands.Converters
         /// Returns the type that this converter handles.
         /// </summary>
         public Type GetConvertedType();
+
+        /// <summary>
+        /// Returns a user friendly name for this type.
+        /// </summary>
+        public string GetFriendlyTypeName();
         
         // TODO: Pass in the context as an argument. Could be useful for converting arguments differently based on context.
         // Or also to get an easier access to Advisor or S&box.

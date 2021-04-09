@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Advisor.Commands.Converters;
 
 namespace Advisor.Commands.Entities
 {
@@ -9,6 +10,11 @@ namespace Advisor.Commands.Entities
         /// The type of this argument.
         /// </summary>
         public Type ArgumentType { get; internal set; }
+        
+        /// <summary>
+        /// The converter for this argument's type.
+        /// </summary>
+        public IArgumentConverter Converter { get; internal set; }
         
         /// <summary>
         /// Reflected parameter info from the command method.
