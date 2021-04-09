@@ -174,6 +174,8 @@ namespace Advisor.Commands.Entities
                         objects.Add(paramsObjects.ToArray());
                     }
                 }
+
+                current++;
             }
             
             return ArgumentParserResult.FromSuccess(objects.ToArray());
