@@ -16,7 +16,7 @@ As such, there likely won't be a lot of networking, UI, or data storage involved
 
 λdvisor (read: Advisor) is an administration addon in heavily development, built to provide the following features to your servers:
 
-- Permissions systems with role based access to commands.
+- String based permission system.
 - Moderation commands.
 - Full administrative control of your server through an in-game menu.
 - Logging of user actions such as joining, leaving, chat messages, kills, bans and more.
