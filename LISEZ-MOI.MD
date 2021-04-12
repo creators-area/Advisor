@@ -4,7 +4,7 @@
 
 # λdvisor
 
-Un framework d'administration open-source et extensible pour vos addons et serveurs S&box.
+Un framework d'administration open-source et extensible pour vos addons et serveurs S&box (Sandbox).
   
 ## Mais attends, S&box n'est pas encore sorti?!
 
