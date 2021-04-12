@@ -3,7 +3,7 @@
 ![image](https://user-images.githubusercontent.com/25248023/113520130-542d8d00-9591-11eb-8104-d5abd8ecb660.png)
 
 # λdvisor
-An open source and expandable administration framework for your S&amp;box servers and addons.
+An open source and expandable administration framework for your S&amp;box (Sandbox) servers and addons.
 
 ## But wait, S&box isn't out yet?!
 
