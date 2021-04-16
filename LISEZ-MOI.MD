@@ -1,4 +1,4 @@
-*For the English version, check [README.MD](https://github.com/game-creators-area/Advisor/blob/master/README.md)*
+*For the English version: [README.MD](https://github.com/game-creators-area/Advisor/blob/master/README.md)*
 
 
 <p align="center">
