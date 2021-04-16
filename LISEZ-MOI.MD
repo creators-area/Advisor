@@ -1,11 +1,15 @@
 *For the English version, check [README.MD](https://github.com/game-creators-area/Advisor/blob/master/README.md)*
 
-![image](https://user-images.githubusercontent.com/25248023/113520130-542d8d00-9591-11eb-8104-d5abd8ecb660.png)
 
-# λdvisor
+<p align="center">
+  <img width="256" height="256" src="https://user-images.githubusercontent.com/25248023/113520130-542d8d00-9591-11eb-8104-d5abd8ecb660.png">
+</p>
 
-Un framework d'administration open-source et extensible pour vos addons et serveurs S&box (Sandbox).
-  
+<h1 align="center"> λdvisor </h1>
+<p align="center"> Un framework d'administration open-source et extensible pour vos addons et serveurs S&box (Sandbox). </p>
+<div />
+
+
 ## Mais attends, S&box n'est pas encore sorti?!
 
 En effet, ce framework est écrit de manière agnostique pour pouvoir être porté vers S&box lorsque nous y aurons accès.
