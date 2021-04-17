@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using Advisor.Enums;
 
 namespace Advisor.Commands.Attributes
@@ -11,6 +12,7 @@ namespace Advisor.Commands.Attributes
     {
         /// <summary>
         /// Gets the name of this command.
+        /// Must be alphanumerical, allows for hyphens and underscores.
         /// </summary>
         public string Name { get; }
 
@@ -18,6 +20,14 @@ namespace Advisor.Commands.Attributes
         /// The realm on which this command will be executed.
         /// </summary>
         public SandboxRealm ExecutionRealm { get; }
+
+        /// <summary>
+        /// Whether or not this command's name is valid.
+        /// </summary>
+        public bool HasValidCommandName()
+        {
+            return !string.IsNullOrWhiteSpace(Name) && new Regex("^[a-zA-Z0-9_-]+$").IsMatch(Name);
+        }
 
         public CommandAttribute(string name, SandboxRealm executesOn)
         {

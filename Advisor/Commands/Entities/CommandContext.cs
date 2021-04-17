@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Sandbox;
 
 namespace Advisor.Commands.Entities
 {
@@ -20,11 +21,9 @@ namespace Advisor.Commands.Entities
         /// <summary>
         /// The player who ran the command, unless it was the server.
         /// </summary>
-        // TODO: This is a stub, fill in with a S&box player instance.
-        public object Caller { get; internal set; }
+        public Player Caller { get; internal set; }
         
-        /// <summary>
-        /// Whether or not this command was ran on the server's console directly.
+        /// <summary>\
         /// If so, there won't be any caller.
         /// </summary>
         public bool RanOnConsole { get; internal set; }

@@ -12,7 +12,7 @@ namespace Advisor
     /// </summary>
     public class AdvisorAddon
     {
-        private CommandHandler _commandHandler;
+        private CommandRegistry _commandRegistry;
         private ServiceContainer _services;
 
         public AdvisorAddon()
@@ -23,12 +23,17 @@ namespace Advisor
         private void InitializeAdvisor()
         {
             _services = new ServiceContainer();
-            _commandHandler = new CommandHandler(this);
-            _services.AddService(typeof(CommandHandler), _commandHandler);
+            _commandRegistry = new CommandRegistry(this);
+            _services.AddService(typeof(CommandRegistry), _commandRegistry);
 
             // Register Advisor's argument converters and commands.
-            _commandHandler.RegisterArgumentConverters(Assembly.GetExecutingAssembly());
-            _commandHandler.RegisterCommandModules(Assembly.GetExecutingAssembly());
+            _commandRegistry.RegisterArgumentConverters(Assembly.GetExecutingAssembly());
+            _commandRegistry.RegisterCommandModules(Assembly.GetExecutingAssembly());
+        }
+
+        public T GetService<T>()
+        {
+            return _services.GetRequiredService<T>();
         }
     }
 }

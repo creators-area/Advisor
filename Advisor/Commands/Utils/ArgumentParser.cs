@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Advisor.Commands.Entities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Advisor.Commands.Entities
+namespace Advisor.Commands.Utils
 {
     public static class ArgumentParser
     {
@@ -115,6 +116,12 @@ namespace Advisor.Commands.Entities
         }
         #endregion // OpenMod Source
 
+        /// <summary>
+        /// Parse raw arguments into an object[] for the given command arguments.
+        /// </summary>
+        /// <param name="arguments"> The command arguments to parse the raw arguments for. </param>
+        /// <param name="rawArguments">The raw arguments to parse.</param>
+        /// <returns> An array of parsed and converted arguments for method invocation. </returns>
         public static ArgumentParserResult Parse(IReadOnlyList<CommandArgument> arguments, string[] rawArguments)
         {
             int current = 0;

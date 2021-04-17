@@ -15,6 +15,12 @@ namespace Advisor.Commands.Entities
         /// Set using the <see cref="Advisor.Commands.Attributes.CommandAttribute"/>.
         /// </summary>
         public string Name { get; internal set; }
+        
+        /// <summary>
+        /// Returns the full name of this command assembled with the module's prefix.
+        /// I.e. the "list" command in a module with the "permissions" prefix would be "permissions list".
+        /// </summary>
+        public string FullName { get; internal set; }
 
         /// <summary>
         /// Returns the possible aliases of this command.
@@ -59,11 +65,6 @@ namespace Advisor.Commands.Entities
         /// </summary>
         public IReadOnlyList<CommandArgument> Arguments { get; internal set; }
 
-        /// <summary>
-        /// Commands with the same name will be added as overloads to the first one that's loaded.
-        /// </summary>
-        internal List<Command> Overloads { get; set; }
-        
         /// <summary>
         /// The method this command was created from.
         /// </summary>

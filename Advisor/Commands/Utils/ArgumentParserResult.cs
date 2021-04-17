@@ -1,4 +1,4 @@
-﻿namespace Advisor.Commands.Entities
+﻿namespace Advisor.Commands.Utils
 {
     public readonly struct ArgumentParserResult
     {

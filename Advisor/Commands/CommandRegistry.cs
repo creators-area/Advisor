@@ -9,19 +9,28 @@ using Advisor.Commands.Entities;
 
 namespace Advisor.Commands
 {
-    public class CommandHandler
+    /// <summary>
+    /// Handles the registration of commands and argument converters.
+    /// </summary>
+    public class CommandRegistry
     {
         private readonly AdvisorAddon _advisor;
-        private List<Command> _commands;
         private Dictionary<Type, CommandModule> _loadedModules;
         private Dictionary<Type, IArgumentConverter> _converters;
-        
-        public CommandHandler(AdvisorAddon advisor)
+
+        // Commands that aren't executed using a category prefix.
+        private Dictionary<string, Command> _rootCommands;
+        // Commands that are executed using a category prefix.
+        private Dictionary<string, Dictionary<string, Command>> _categorizedCommands;
+
+        public CommandRegistry(AdvisorAddon advisor)
         {
             _advisor = advisor;
-            _commands = new List<Command>();
             _loadedModules = new Dictionary<Type, CommandModule>();
             _converters = new Dictionary<Type, IArgumentConverter>();
+
+            _rootCommands = new Dictionary<string, Command>();
+            _categorizedCommands = new Dictionary<string, Dictionary<string, Command>>();
         }
 
         /// <summary>
@@ -38,7 +47,7 @@ namespace Advisor.Commands
 
             var converters = assembly.GetTypes()
                 .Where(t => typeof(IArgumentConverter).IsAssignableFrom(t)
-                            && !t.IsNested && t.IsPublic && !t.IsInterface)
+                    && !t.IsNested && t.IsPublic && !t.IsInterface)
                 .ToList();
 
             foreach (var type in converters)
@@ -85,8 +94,31 @@ namespace Advisor.Commands
                 return;
             }
 
-            Console.WriteLine($"Advisor: Register argument converter '{type.Name}' for type '{converter.GetConvertedType().Name}'");
+            Console.WriteLine($"Advisor: Registered argument converter '{type.Name}' for type '{converter.GetConvertedType().Name}'");
             _converters.Add(convertedType, converter);
+        }
+
+        /// <summary>
+        /// Whether or not the given type has a registered argument converter.
+        /// </summary>
+        /// <param name="type"> The type to check against. </param>
+        /// <returns> True if a converter exists for the type. </returns>
+        public bool HasArgumentConverter(Type type) => _converters.ContainsKey(type);
+
+        /// <summary>
+        /// Return an argument converter for the given type, if any.
+        /// </summary>
+        /// <param name="type"> The type that the argument converter is assigned to. </param>
+        /// <returns> The found argument converter. </returns>
+        /// <exception cref="ArgumentException"> Thrown if the given type has no argument converter. </exception>
+        public IArgumentConverter GetArgumentConverter(Type type)
+        {
+            if (!_converters.ContainsKey(type))
+            {
+                throw new ArgumentException($"Could not find any argument converter for type '{type.Name}'");
+            }
+
+            return _converters[type];
         }
         
         /// <summary>
@@ -106,10 +138,9 @@ namespace Advisor.Commands
                 .Where(t =>
                 {
                     var typeInfo = t.GetTypeInfo();
-                    return !typeInfo.IsNested && typeInfo.IsPublic 
+                    return !typeInfo.IsNested && typeInfo.IsPublic
                         && !typeInfo.IsGenericType && t.IsSubclassOf(typeof(CommandModule));
-                })
-                .ToList();
+                });
 
             foreach (var commandModule in types)
             {
@@ -146,24 +177,44 @@ namespace Advisor.Commands
                 throw new ArgumentException("Type must be public, non generic and not nested.");
             }
 
-            var module = Activator.CreateInstance(type) as CommandModule;
-            if (module == null)
+            var categoryAttr = type.GetCustomAttribute<CategoryAttribute>();
+            if (categoryAttr == null)
+            {
+                throw new InvalidOperationException("Command modules must have a CategoryAttribute.");
+            }
+
+            // Check that the command module's permission name is valid.
+            if (!categoryAttr.HasValidPermissionName())
+            {
+                throw new ArgumentException("Command module permission names can only consist of lowercase characters a-z, 0-9, -, _");
+            }
+            
+            // Check that the command module's prefix is valid.
+            if (!categoryAttr.HasValidPrefix())
+            {
+                throw new ArgumentException("Command module prefix can only consist of characters A-Z, 0-9, -, _");
+            }
+            
+            if (Activator.CreateInstance(type) is not CommandModule module)
             {
                 throw new InvalidOperationException($"Failed to instantiate command module type {type.Name}.");
             }
-            
+
+            module.Category = categoryAttr.Name;
+            module.PermissionName = categoryAttr.PermissionName;
+            module.Prefix = categoryAttr.Prefix;
+
             _loadedModules.Add(type, module);
 
             // Register every declared method that fits a command's signature (Context + other arguments).
             // Right now we'll grab all methods with the CommandAttribute and throw if any is wrong.
             // That'll let the developer know they need to fix their stuff.
             var commandMethods = typeInfo.DeclaredMethods
-                .Where(m => m.GetCustomAttribute<CommandAttribute>() != null)
-                .ToList();
+                .Where(m => m.IsDefined(typeof(CommandAttribute)));
 
-            foreach (var command in commandMethods)
+            foreach (var method in commandMethods)
             {
-                RegisterCommand(module, command);
+                RegisterCommand(module, method);
             }
         }
 
@@ -194,9 +245,33 @@ namespace Advisor.Commands
             }
             
             // Check that the command's name is valid.
-            if (string.IsNullOrWhiteSpace(commandAttr.Name))
+            if (!commandAttr.HasValidCommandName())
             {
-                throw new ArgumentException("Command name cannot be null or whitespace.", nameof(commandAttr.Name));
+                throw new ArgumentException("Command name can only consist of characters A-Z, 0-9, -, _");
+            }
+
+            if (module.Prefix == null)
+            {
+                // Make sure that there's no existing command with that name.
+                if (_rootCommands.ContainsKey(commandAttr.Name.ToLower()))
+                {
+                    // TODO: Change to console log in S&box.
+                    throw new InvalidOperationException(
+                        $"Cannot register command '{commandAttr.Name}' from module '{module.GetType().Name}' as another root command with that name exists.");
+                }
+            }
+            else
+            {
+                if (_categorizedCommands.ContainsKey(module.Prefix))
+                {
+                    var dict = _categorizedCommands[module.Prefix];
+                    if (dict.ContainsKey(commandAttr.Name.ToLower()))
+                    {
+                        // TODO: Change to console log in S&box.
+                        throw new InvalidOperationException(
+                            $"Cannot register command '{module.Prefix} {commandAttr.Name}' from module '{module.GetType().Name}' as another command with that name exists.");
+                    }
+                }
             }
             
             // Check that the return type is void.
@@ -269,7 +344,7 @@ namespace Advisor.Commands
 
                     var arg = new CommandArgument
                     {
-                        ArgumentType = param.ParameterType,
+                        ArgumentType = argType,
                         Parameter = param,
                         Remainder = remainder,
                         IsParams = isParams,
@@ -289,6 +364,10 @@ namespace Advisor.Commands
                 Method = info,
             };
             
+            cmd.FullName = !string.IsNullOrWhiteSpace(module.Prefix) 
+                ? $"{module.Prefix} {cmd.Name}".ToLower() 
+                : cmd.Name.ToLower();
+            
             // Populate any additional attributes.
             foreach (var attr in info.GetCustomAttributes())
             {
@@ -300,21 +379,21 @@ namespace Advisor.Commands
                         break;
                     case TargetAttribute target: cmd.TargetPermissionLevel = target.TargetPermissionLevel;
                         break;
-                    case HiddenAttribute hidden: cmd.IsHidden = true;
+                    case HiddenAttribute: cmd.IsHidden = true;
                         break;
                 }
             }
-
-            // Dynamically generate the delegate for the command's method.
-            var paramTypes = info.GetParameters()
-                .Select(p => p.ParameterType)
-                .Concat(new[] { info.ReturnType })
-                .ToArray();
             
-            if (commandArguments.Count > 1)
+            // TODO: Maybe add a CommandContext, TargetPlayer overload? If the performance is worth it over dyn invoke.
+            if (commandArguments.Count > 0)
             {
+                // Dynamically generate the delegate for the command's method.
+                var paramTypes = info.GetParameters()
+                    .Select(p => p.ParameterType)
+                    .Concat(new[] { info.ReturnType })
+                    .ToArray();
+                
                 // Not as fast as a known delegate signature, and requires executing the command with DynamicInvoke().
-                // TODO: Benchmark this.
                 var delType = Expression.GetDelegateType(paramTypes);
                 cmd.MethodDelegate = Delegate.CreateDelegate(delType, module, info);   
             }
@@ -325,22 +404,22 @@ namespace Advisor.Commands
                 cmd.MethodDelegateNoParams = info.CreateDelegate<Action<CommandContext>>(module);
             }
             
-            // TODO: Maybe add a CommandContext, TargetPlayer overload? If the performance is worth it over dyn invoke.
-            
-            // Check if any command in the module have the same name and add it as an overload if so.
-            var existingCommand = module.Commands
-                .FirstOrDefault(c => c.Name.Equals(cmd.Name, StringComparison.InvariantCultureIgnoreCase));
+            // TODO: Change to S&box log.
+            Console.WriteLine($"Registered command {cmd.Name} with {cmd.Arguments.Count} arguments.");
+            module.InternalCommands.Add(cmd);
 
-            if (existingCommand != null)
+            if (module.Prefix == null)
             {
-                existingCommand.Overloads.Add(existingCommand);
+                _rootCommands.Add(cmd.FullName.ToLower(), cmd);
             }
             else
             {
-                Console.WriteLine($"Registered command {cmd.Name} with {cmd.Arguments.Count} arguments.");
-                var cmds = module.Commands.ToList();
-                cmds.Add(cmd);
-                module.Commands = cmds;
+                if (!_categorizedCommands.ContainsKey(module.Prefix.ToLower()))
+                {
+                    _categorizedCommands.Add(module.Prefix.ToLower(), new Dictionary<string, Command>());
+                }
+                
+                _categorizedCommands[module.Prefix.ToLower()].Add(cmd.Name.ToLower(), cmd);
             }
         }
     }
