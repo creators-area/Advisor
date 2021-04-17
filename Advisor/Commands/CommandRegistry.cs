@@ -23,7 +23,7 @@ namespace Advisor.Commands
         // Commands that are executed using a category prefix.
         private Dictionary<string, Dictionary<string, Command>> _categorizedCommands;
 
-        public CommandRegistry(AdvisorAddon advisor)
+        internal CommandRegistry(AdvisorAddon advisor)
         {
             _advisor = advisor;
             _loadedModules = new Dictionary<Type, CommandModule>();
@@ -411,15 +411,46 @@ namespace Advisor.Commands
             if (module.Prefix == null)
             {
                 _rootCommands.Add(cmd.FullName.ToLower(), cmd);
+
+                foreach (string alias in cmd.Aliases)
+                {
+                    var a = alias.ToLower();
+                    if (!_rootCommands.ContainsKey(a))
+                    {
+                        _rootCommands.Add(a, cmd);
+                    }
+                    else
+                    {
+                        // TODO: Change to log in S&box.
+                        throw new InvalidOperationException(
+                            $"Command '{cmd.Name}' in module {module.GetType().Name}' has an alias '{alias}' that conflicts with another command!");
+                    }
+                }
             }
             else
             {
-                if (!_categorizedCommands.ContainsKey(module.Prefix.ToLower()))
+                var prefix = module.Prefix.ToLower();
+                if (!_categorizedCommands.ContainsKey(prefix))
                 {
-                    _categorizedCommands.Add(module.Prefix.ToLower(), new Dictionary<string, Command>());
+                    _categorizedCommands.Add(prefix, new Dictionary<string, Command>());
                 }
                 
-                _categorizedCommands[module.Prefix.ToLower()].Add(cmd.Name.ToLower(), cmd);
+                _categorizedCommands[prefix].Add(cmd.Name.ToLower(), cmd);
+                
+                foreach (string alias in cmd.Aliases)
+                {
+                    var a = alias.ToLower();
+                    if (!_categorizedCommands[prefix].ContainsKey(a))
+                    {
+                        _categorizedCommands[prefix].Add(a, cmd);
+                    }
+                    else
+                    {
+                        // TODO: Change to log in S&box.
+                        throw new InvalidOperationException(
+                            $"Command '{module.Prefix} {cmd.Name}' in module {module.GetType().Name}' has an alias '{alias}' that conflicts with another command!");
+                    }
+                }
             }
         }
     }
