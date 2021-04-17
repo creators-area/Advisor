@@ -1,9 +1,13 @@
 *Pour la version française: [LISEZ-MOI.MD](https://github.com/game-creators-area/Advisor/blob/master/LISEZ-MOI.MD)*
 
-![image](https://user-images.githubusercontent.com/25248023/113520130-542d8d00-9591-11eb-8104-d5abd8ecb660.png)
+<p align="center">
+  <img width="256" height="256" src="https://user-images.githubusercontent.com/25248023/113520130-542d8d00-9591-11eb-8104-d5abd8ecb660.png">
+</p>
 
-# λdvisor
-An open source and expandable administration framework for your S&amp;box servers and addons.
+<h1 align="center"> λdvisor </h1>
+<p align="center"> An open source and expandable administration framework for your S&amp;box (Sandbox) servers and addons. </p>
+<div />
+
 
 ## But wait, S&box isn't out yet?!
 
@@ -16,7 +20,7 @@ As such, there likely won't be a lot of networking, UI, or data storage involved
 
 λdvisor (read: Advisor) is an administration addon in heavily development, built to provide the following features to your servers:
 
-- Permissions systems with role based access to commands.
+- String based permission system.
 - Moderation commands.
 - Full administrative control of your server through an in-game menu.
 - Logging of user actions such as joining, leaving, chat messages, kills, bans and more.
