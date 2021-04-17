@@ -453,5 +453,58 @@ namespace Advisor.Commands
                 }
             }
         }
+
+        /// <summary>
+        /// Try to get a root command from its name.
+        /// </summary>
+        /// <param name="name"> The name of the command to retrieve. </param>
+        /// <param name="cmd"> The registered command if any. </param>
+        /// <returns> True if a command was found. </returns>
+        public bool TryGetCommand(string name, out Command cmd)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (_rootCommands.TryGetValue(name.ToLower(), out cmd))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Try to get a command with a category prefix from its name.
+        /// I.e: 'permissions list' is a categorized command.
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="name"></param>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public bool TryGetCommand(string category, string name, out Command cmd)
+        {
+            if (category == null)
+            {
+                throw new ArgumentNullException(nameof(category));
+            }
+            
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (_categorizedCommands.TryGetValue(category.ToLower(), out var dict))
+            {
+                if (dict.TryGetValue(name.ToLower(), out cmd))
+                {
+                    return true;
+                }
+            }
+
+            cmd = null;
+            return false;
+        }
     }
 }
