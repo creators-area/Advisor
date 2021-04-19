@@ -35,12 +35,12 @@ namespace Advisor.Commands.Converters
 
             // Let's catch a little more cases, but you really shouldn't be looking for these. 
             input = input.Trim();
-            if (input.Equals("yes", StringComparison.InvariantCultureIgnoreCase))
+            if (input.Equals("yes", StringComparison.CurrentCultureIgnoreCase))
             {
                 return ArgumentConverterResult.FromSuccess(true);
             }
 
-            if (input.Equals("no", StringComparison.InvariantCultureIgnoreCase))
+            if (input.Equals("no", StringComparison.CurrentCultureIgnoreCase))
             {
                 return ArgumentConverterResult.FromSuccess(false);
             }
@@ -61,7 +61,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (byte.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out byte b))
+            if (byte.TryParse(input, NumberStyles.Integer, CultureInfo.CurrentCulture, out byte b))
             {
                 return ArgumentConverterResult.FromSuccess(b);
             }
@@ -82,7 +82,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (sbyte.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out sbyte sb))
+            if (sbyte.TryParse(input, NumberStyles.Integer, CultureInfo.CurrentCulture, out sbyte sb))
             {
                 return ArgumentConverterResult.FromSuccess(sb);
             }
@@ -103,7 +103,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (short.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out short s))
+            if (short.TryParse(input, NumberStyles.Integer, CultureInfo.CurrentCulture, out short s))
             {
                 return ArgumentConverterResult.FromSuccess(s);
             }
@@ -124,7 +124,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (ushort.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out ushort us))
+            if (ushort.TryParse(input, NumberStyles.Integer, CultureInfo.CurrentCulture, out ushort us))
             {
                 return ArgumentConverterResult.FromSuccess(us);
             }
@@ -145,7 +145,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (int.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out int i))
+            if (int.TryParse(input, NumberStyles.Integer, CultureInfo.CurrentCulture, out int i))
             {
                 return ArgumentConverterResult.FromSuccess(i);
             }
@@ -166,7 +166,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (uint.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out uint ui))
+            if (uint.TryParse(input, NumberStyles.Integer, CultureInfo.CurrentCulture, out uint ui))
             {
                 return ArgumentConverterResult.FromSuccess(ui);
             }
@@ -186,7 +186,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (long.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out long l))
+            if (long.TryParse(input, NumberStyles.Integer, CultureInfo.CurrentCulture, out long l))
             {
                 return ArgumentConverterResult.FromSuccess(l);
             }
@@ -207,7 +207,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (ulong.TryParse(input, NumberStyles.Integer , CultureInfo.InvariantCulture, out ulong ul))
+            if (ulong.TryParse(input, NumberStyles.Integer , CultureInfo.CurrentCulture, out ulong ul))
             {
                 return ArgumentConverterResult.FromSuccess(ul);
             }
@@ -228,7 +228,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (float.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out float f))
+            if (float.TryParse(input, NumberStyles.Float, CultureInfo.CurrentCulture, out float f))
             {
                 return ArgumentConverterResult.FromSuccess(f);
             }
@@ -248,7 +248,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (double.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out double d))
+            if (double.TryParse(input, NumberStyles.Float, CultureInfo.CurrentCulture, out double d))
             {
                 return ArgumentConverterResult.FromSuccess(d);
             }
@@ -269,7 +269,7 @@ namespace Advisor.Commands.Converters
 
         public ArgumentConverterResult ConvertArgument(string input)
         {
-            if (decimal.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal d))
+            if (decimal.TryParse(input, NumberStyles.Float, CultureInfo.CurrentCulture, out decimal d))
             {
                 return ArgumentConverterResult.FromSuccess(d);
             }
