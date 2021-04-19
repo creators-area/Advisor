@@ -41,7 +41,6 @@ namespace Advisor.Commands.Utils
                     case '\\':
                         isEscaped = true;
                         break;
-
                     case '\'':
                         if (!inQuote && (currentArg.Length == 0 || argsBuilder.Length == nextIndex || IsSpace(argsBuilder[nextIndex])))
                         {
@@ -52,7 +51,6 @@ namespace Advisor.Commands.Utils
                             currentArg.Append(currentChar);
                         }
                         break;
-
                     case '"':
                         if (!inApostrophes && (currentArg.Length == 0 || argsBuilder.Length == nextIndex || IsSpace(argsBuilder[nextIndex])))
                         {
@@ -63,7 +61,6 @@ namespace Advisor.Commands.Utils
                             currentArg.Append(currentChar);
                         }
                         break;
-
                     default:
                         if (IsSpace(currentChar))
                         {
@@ -78,14 +75,15 @@ namespace Advisor.Commands.Utils
                             }
                             break;
                         }
-
                         currentArg.Append(currentChar);
                         break;
                 }
             }
 
             if (inQuote || inApostrophes) //command: 'command "player    ' -> args: 'command', 'player'
+            {
                 currentArg = TrimEnd(currentArg);
+            }
 
             args.Add(currentArg.ToString());
             return args.ToArray();
@@ -93,18 +91,18 @@ namespace Advisor.Commands.Utils
         
         private static StringBuilder TrimEnd(StringBuilder currentArg)
         {
-            var lenght = 0;
+            var length = 0;
             for (var i = currentArg.Length - 1; 0 <= i; i--)
             {
                 if (!IsSpace(currentArg[i]))
                 {
-                    if (lenght != 0)
-                        currentArg.Remove(i + 1, lenght);
+                    if (length != 0)
+                        currentArg.Remove(i + 1, length);
 
                     break;
                 }
 
-                lenght++;
+                length++;
             }
 
             return currentArg;
@@ -124,8 +122,8 @@ namespace Advisor.Commands.Utils
         /// <returns> An array of parsed and converted arguments for method invocation. </returns>
         public static ArgumentParserResult Parse(IReadOnlyList<CommandArgument> arguments, string[] rawArguments)
         {
-            int current = 0;
-            List<object> objects = new List<object>();
+            var current = 0;
+            var objects = new object[arguments.Count];
 
             foreach (var arg in arguments)
             {
@@ -134,7 +132,7 @@ namespace Advisor.Commands.Utils
                     // If it has a default value, we can just grab whatever it has.
                     if (arg.Parameter.HasDefaultValue)
                     {
-                        objects.Add(arg.Parameter.RawDefaultValue);
+                        objects[objects.Length] = arg.Parameter.RawDefaultValue;
                     }
                     else
                     {
@@ -159,14 +157,14 @@ namespace Advisor.Commands.Utils
                             return ArgumentParserResult.FromFailure($"Failed to parse '{remainder}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
                         }
 
-                        objects.Add(result.Result);
+                        objects[objects.Length] = result.Result;
                         return ArgumentParserResult.FromSuccess(objects.ToArray());
                     }                    
                     
                     // Loop through the remaining raw arguments and add them to an array.
                     if (arg.IsParams)
                     {
-                        List<object> paramsObjects = new List<object>();
+                        var paramsObjects = new object[rawArguments.Length - current];
                         for (int i = current; i < rawArguments.Length; i++)
                         {
                             var raw = rawArguments[i];
@@ -176,10 +174,10 @@ namespace Advisor.Commands.Utils
                                 return ArgumentParserResult.FromFailure($"Failed to parse '{raw}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
                             }
 
-                            paramsObjects.Add(result.Result);
+                            paramsObjects[paramsObjects.Length] = result.Result;
                         }
                         
-                        objects.Add(paramsObjects.ToArray());
+                        objects[objects.Length] = paramsObjects;
                         return ArgumentParserResult.FromSuccess(objects.ToArray());
                     }
                     
@@ -189,14 +187,14 @@ namespace Advisor.Commands.Utils
                     {
                         return ArgumentParserResult.FromFailure($"Failed to parse '{rawArg}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
                     }
-                    
-                    objects.Add(converted.Result);
+
+                    objects[objects.Length] = converted.Result;
                 }
 
                 current++;
             }
             
-            return ArgumentParserResult.FromSuccess(objects.ToArray());
+            return ArgumentParserResult.FromSuccess(objects);
         }
     }
 }
