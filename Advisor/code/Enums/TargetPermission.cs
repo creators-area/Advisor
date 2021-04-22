@@ -2,6 +2,7 @@
 {
     /// <summary>
     /// Allows additional checks for commands that target another user/multiple users.
+    /// TODO: Move to Permissions namespace.
     /// </summary>
     public enum TargetPermission
     {

@@ -6,6 +6,7 @@ using System.Reflection;
 using Advisor.Commands.Attributes;
 using Advisor.Commands.Converters;
 using Advisor.Commands.Entities;
+using Advisor.Configuration;
 
 namespace Advisor.Commands
 {
@@ -15,6 +16,8 @@ namespace Advisor.Commands
     public class CommandRegistry
     {
         private readonly AdvisorAddon _advisor;
+        private readonly ConfigurationService _configuration;
+        
         private Dictionary<Type, CommandModule> _loadedModules;
         private Dictionary<Type, IArgumentConverter> _converters;
 
@@ -26,6 +29,7 @@ namespace Advisor.Commands
         internal CommandRegistry(AdvisorAddon advisor)
         {
             _advisor = advisor;
+            _configuration = advisor.GetService<ConfigurationService>();
             _loadedModules = new Dictionary<Type, CommandModule>();
             _converters = new Dictionary<Type, IArgumentConverter>();
 
@@ -47,8 +51,7 @@ namespace Advisor.Commands
 
             var converters = assembly.GetTypes()
                 .Where(t => typeof(IArgumentConverter).IsAssignableFrom(t)
-                    && !t.IsNested && t.IsPublic && !t.IsInterface)
-                .ToList();
+                            && !t.IsNested && t.IsPublic && !t.IsInterface);
 
             foreach (var type in converters)
             {
@@ -479,10 +482,10 @@ namespace Advisor.Commands
         /// Try to get a command with a category prefix from its name.
         /// I.e: 'permissions list' is a categorized command.
         /// </summary>
-        /// <param name="category"></param>
-        /// <param name="name"></param>
-        /// <param name="cmd"></param>
-        /// <returns></returns>
+        /// <param name="category"> The name of the category this command is under (the prefix) </param>
+        /// <param name="name"> The name of the command to retrieve. </param>
+        /// <param name="cmd"> The registered command if any. </param>
+        /// <returns> True if a command was found. </returns>
         public bool TryGetCommand(string category, string name, out Command cmd)
         {
             if (category == null)

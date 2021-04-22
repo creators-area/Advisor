@@ -8,7 +8,7 @@ namespace Advisor
 {
     /// <summary>
     /// Entry point of Advisor.
-    /// I have no idea how this works in &box right now though, so it'll likely need a small refactor.
+    /// I have no idea how this works in s&box right now though, so it'll likely need a small refactor.
     /// </summary>
     public class AdvisorAddon
     {

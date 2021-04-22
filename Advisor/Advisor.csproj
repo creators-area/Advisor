@@ -6,7 +6,7 @@
       <ProjectReference Include="..\Sandbox\Sandbox.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <None Update="advisorConfiguration.json">
+      <None Update="code\advisorConfiguration.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
