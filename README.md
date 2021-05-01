@@ -47,5 +47,5 @@ This addon is under development in collaboration with the community at Game Crea
 
 Many thanks to the friendly developers at the official Facepunch Discord server, as well as the community S&box Modding server!
 
-[<img src="https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1">](https://discord.gg/facepunch)
+[<img src="https://discordapp.com/api/guilds/833983068468936704/widget.png?style=banner1">](https://discord.gg/sbox)
 [<img src="https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1">](https://discord.gg/K4Jv7G3WUw)
