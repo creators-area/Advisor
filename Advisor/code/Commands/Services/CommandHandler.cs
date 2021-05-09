@@ -151,6 +151,13 @@ namespace Advisor.Commands.Services
                 subSuccess = TryExecuteCommand(context, out subCommandSuccess, out subCommandFailure);
                 if (subSuccess)
                 {
+                    if (subCommandSuccess == null)
+                    {
+                        throw new InvalidOperationException(
+                            $"Commands that successfully executed should return a valid CommandExecutedArgs!");
+                    }
+                    
+                    OnCommandExecuted(subCommandSuccess.Value);
                     return;
                 }
             }
@@ -175,6 +182,12 @@ namespace Advisor.Commands.Services
                 rootSuccess = TryExecuteCommand(context, out rootCommandSuccess, out rootCommandFailure);
                 if (rootSuccess)
                 {
+                    if (rootCommandSuccess == null)
+                    {
+                        throw new InvalidOperationException(
+                            $"Commands that successfully executed should return a valid CommandExecutedArgs!");
+                    }
+                    OnCommandExecuted(rootCommandSuccess.Value);
                     return;
                 }
             }
