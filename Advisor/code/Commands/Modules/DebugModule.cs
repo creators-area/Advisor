@@ -5,6 +5,7 @@ using Advisor.Enums;
 
 namespace Advisor.Commands.Modules
 {
+    [Category("Advisor: Debug", "debug")]
     public class DebugModule : CommandModule
     {
         [Command("test", SandboxRealm.Shared)]

@@ -20,12 +20,12 @@ namespace Advisor.Commands.Services
         /// <summary>
         /// Called when a command was executed succesfully.
         /// </summary>
-        public Action<CommandExecutedArgs> OnCommandExecuted { get; set; }
-        
+        public event Action<CommandExecutedArgs> CommandExecuted;
+
         /// <summary>
         /// Called when a command didn't execute correctly.
         /// </summary>
-        public Action<CommandFailedArgs> OnCommandFailed { get; set; }
+        public event Action<CommandFailedArgs> CommandFailed;
         
         internal CommandHandler(AdvisorAddon advisor)
         {
@@ -34,7 +34,7 @@ namespace Advisor.Commands.Services
             _configService = advisor.GetService<ConfigurationService>();
         }
 
-        private void HandleChatMessage(Player sender, string text)
+        public void HandleChatMessage(Player sender, string text)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
@@ -68,7 +68,7 @@ namespace Advisor.Commands.Services
                 if (arguments.Length == 1)
                 {
                     var failureArgs = CommandFailedArgs.FromUnknownCommand(first);
-                    OnCommandFailed(failureArgs);
+                    CommandFailed?.Invoke(failureArgs);
                     // TODO: Tell player they've typed an unknown command.
                     // Could not find any command named 'first'.
                     return;
@@ -85,7 +85,7 @@ namespace Advisor.Commands.Services
                         if (arguments.Length == 1)
                         {
                             var failureArgs = CommandFailedArgs.FromUnknownCommand(first);
-                            OnCommandFailed(failureArgs);
+                            CommandFailed?.Invoke(failureArgs);
                             // TODO: Tell player they've typed an unknown command.
                             // Could not find any command named 'first'.
                             return;
@@ -94,39 +94,43 @@ namespace Advisor.Commands.Services
                 }
             }
 
-            // Check if we've got a subcommand to call too.
-            var second = arguments[1].ToLower();
-            if (!_commands.TryGetCommand(first, second, out var subCommand))
+            Command subCommand = null;
+            if (arguments.Length > 1)
             {
-                if (rootCommand == null)
+                // Check if we've got a subcommand to call too.
+                var second = arguments[1].ToLower();
+                if (!_commands.TryGetCommand(first, second, out subCommand))
                 {
-                    var failureArgs = CommandFailedArgs.FromUnknownCommand($"{first} {second}");
-                    OnCommandFailed(failureArgs);
-                    // TODO: Tell player they've typed an unknown command.
-                    // Could not find any command named 'first' or 'first second'.
-                    return;
-                }
-            }
-            else
-            {
-                // Compare with the configured case sensitivity if needed.
-                if (_configService.Configuration.CaseSensitiveCommands)
-                {
-                    if (!subCommand.FullName.Equals($"{first} {second}", StringComparison.CurrentCulture))
+                    if (rootCommand == null)
                     {
-                        subCommand = null;
-                        if (rootCommand == null)
+                        var failureArgs = CommandFailedArgs.FromUnknownCommand($"{first} {second}");
+                        CommandFailed?.Invoke(failureArgs);
+                        // TODO: Tell player they've typed an unknown command.
+                        // Could not find any command named 'first' or 'first second'.
+                        return;
+                    }
+                }
+                else
+                {
+                    // Compare with the configured case sensitivity if needed.
+                    if (_configService.Configuration.CaseSensitiveCommands)
+                    {
+                        if (!subCommand.FullName.Equals($"{first} {second}", StringComparison.CurrentCulture))
                         {
-                            var failureArgs = CommandFailedArgs.FromUnknownCommand($"{first} {second}");
-                            OnCommandFailed(failureArgs);
-                            // TODO: Tell player they've typed an unknown command.
-                            // Could not find any command named 'first'.
-                            return;
+                            subCommand = null;
+                            if (rootCommand == null)
+                            {
+                                var failureArgs = CommandFailedArgs.FromUnknownCommand($"{first} {second}");
+                                CommandFailed?.Invoke(failureArgs);
+                                // TODO: Tell player they've typed an unknown command.
+                                // Could not find any command named 'first'.
+                                return;
+                            }
                         }
                     }
                 }
             }
-
+            
             CommandExecutedArgs? rootCommandSuccess = null, subCommandSuccess = null;
             CommandFailedArgs? rootCommandFailure = null, subCommandFailure = null;
             bool rootSuccess, subSuccess;
@@ -157,7 +161,7 @@ namespace Advisor.Commands.Services
                             $"Commands that successfully executed should return a valid CommandExecutedArgs!");
                     }
                     
-                    OnCommandExecuted(subCommandSuccess.Value);
+                    CommandExecuted?.Invoke(subCommandSuccess.Value);
                     return;
                 }
             }
@@ -187,7 +191,7 @@ namespace Advisor.Commands.Services
                         throw new InvalidOperationException(
                             $"Commands that successfully executed should return a valid CommandExecutedArgs!");
                     }
-                    OnCommandExecuted(rootCommandSuccess.Value);
+                    CommandExecuted?.Invoke(rootCommandSuccess.Value);
                     return;
                 }
             }
@@ -204,13 +208,14 @@ namespace Advisor.Commands.Services
                             $"A command returned a CommandFailureReason of 'UnknownCommand'. This should never happen if we've found it!");
                     case CommandFailureReason.ArgumentParserError:
                         // TODO: Notify user of unknown arguments.
-                        throw new NotImplementedException();
+                        //throw new NotImplementedException();
                     case CommandFailureReason.ExceptionThrown:
                         // TODO: Notify user of command exception.
-                        throw new NotImplementedException();
+                        //throw new NotImplementedException();
                     default:
                         // TODO: Notify user of unknown error (notify server owner to check console and pester me).
-                        throw new NotImplementedException();
+                        //throw new NotImplementedException();
+                        break;
                 }
             }
             
@@ -243,7 +248,6 @@ namespace Advisor.Commands.Services
             failureArgs = null;
             
             var command = context.Command;
-            var arguments = context.RawArguments;
 
             // Execute the command now if it doesn't require any arguments.
             if (command.MethodDelegateNoParams != null)
@@ -251,11 +255,12 @@ namespace Advisor.Commands.Services
                 try
                 {
                     command.MethodDelegateNoParams(context);
-                    var args = new CommandExecutedArgs
+                    successArgs = new CommandExecutedArgs
                     {
                         Context = context,
                     };
-                    OnCommandExecuted(args);
+                    CommandExecuted?.Invoke(successArgs.Value);
+                    return true;
                 }
                 catch (Exception e)
                 {
@@ -265,38 +270,38 @@ namespace Advisor.Commands.Services
 
             }
 
-            var subResult = ArgumentParser.Parse(context, command.Arguments, context.InternalRawArguments);
-            if (!subResult.IsSuccessful)
+            var parseResult = ArgumentParser.Parse(context, command.Arguments, context.InternalRawArguments);
+            if (!parseResult.IsSuccessful)
             {
-                failureArgs = CommandFailedArgs.FromInvalidArguments(context, subResult);
-                OnCommandFailed(failureArgs.Value);
+                failureArgs = CommandFailedArgs.FromInvalidArguments(context, parseResult);
+                CommandFailed?.Invoke(failureArgs.Value);
                 return false;
             }
             else
             {
                 // Execute the command.
-                var objs = new object[subResult.Arguments.Length + 1];
+                var objs = new object[parseResult.Arguments.Length + 1];
                 objs[0] = context;
                 for (int i = 1; i < objs.Length; i++)
                 {
-                    objs[i] = subResult.Arguments[i - 1];
+                    objs[i] = parseResult.Arguments[i - 1];
                 }
 
                 try
                 {
-                    command.ExecuteCommand(objs);
+                    command.MethodDelegate.DynamicInvoke(objs);
                     successArgs = new CommandExecutedArgs
                     {
                         Context = context
                     };
 
-                    OnCommandExecuted(successArgs.Value);
+                    CommandExecuted?.Invoke(successArgs.Value);
                     return true;
                 }
                 catch (Exception e)
                 {
                     failureArgs = CommandFailedArgs.FromCommandException(context, e);
-                    OnCommandFailed(failureArgs.Value);
+                    CommandFailed?.Invoke(failureArgs.Value);
                     AdvisorLog.Error(e, $"Command '{context.Command.FullName}' has thrown an exception during execution: ");
                     return false;
                 }

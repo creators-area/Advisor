@@ -27,7 +27,7 @@ namespace Advisor.Commands.Entities
         /// Returns the possible aliases of this command.
         /// Set using the <see cref="Advisor.Commands.Attributes.AliasAttribute"/>.
         /// </summary>
-        public IReadOnlyList<string> Aliases { get; internal set; }
+        public IReadOnlyList<string> Aliases { get; internal set; } = new List<string>();
         
         /// <summary>
         /// Returns the description of this command.
@@ -86,26 +86,5 @@ namespace Advisor.Commands.Entities
         /// Offers faster execution.
         /// </summary>
         internal Action<CommandContext> MethodDelegateNoParams { get; set; }
-
-        internal void ExecuteCommand(object[] args)
-        {
-            if (args.Length == 0 || args[0] is not CommandContext ctx)
-            {
-                throw new ArgumentException("Args must have a CommandContext as its first argument.");
-            }
-            
-            if (MethodDelegate != null)
-            {
-                MethodDelegate.DynamicInvoke(args);
-            }
-            else if (MethodDelegateNoParams != null)
-            {
-                MethodDelegateNoParams(ctx);
-            }
-            else
-            {
-                throw new InvalidOperationException($"Command '{FullName}' has no method delegate! This should never happen.");
-            }
-        }
     }
 }

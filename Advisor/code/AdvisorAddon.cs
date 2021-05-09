@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Feel free to check if ADVISOR is defined in your projects to enable/disable certain functionalities.
+#define ADVISOR
+
+using System;
 using System.ComponentModel.Design;
-using System.Linq;
 using System.Reflection;
-using Advisor.Commands;
 using Advisor.Commands.Services;
 using Advisor.Configuration;
 using Advisor.Extensions;
 using Sandbox;
-
-// Feel free to check if ADVISOR is defined in your projects to enable/disable certain functionalities.
-#define ADVISOR
 
 namespace Advisor
 {
@@ -22,6 +19,7 @@ namespace Advisor
     public class AdvisorAddon
     {
         private CommandRegistry _commandRegistry;
+        private CommandHandler _commandHandler;
         private ConfigurationService _configuration;
         private ServiceContainer _services;
 
@@ -44,11 +42,20 @@ namespace Advisor
             // Register Advisor's argument converters and commands.
             _commandRegistry.RegisterArgumentConverters(Assembly.GetExecutingAssembly());
             _commandRegistry.RegisterCommandModules(Assembly.GetExecutingAssembly());
+
+            _commandHandler = new CommandHandler(this);
+            _services.AddService(typeof(CommandHandler), _commandHandler);
         }
 
         public T GetService<T>()
         {
-            return _services.GetRequiredService<T>();
+            var svc = _services.GetRequiredService<T>();
+            if (svc == null)
+            {
+                throw new InvalidOperationException($"Could not get unknown service '{typeof(T).FullName}'");
+            }
+
+            return svc;
         }
     }
 }

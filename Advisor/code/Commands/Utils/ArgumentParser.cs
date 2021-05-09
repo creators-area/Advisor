@@ -194,7 +194,7 @@ namespace Advisor.Commands.Utils
                         return ArgumentParserResult.FromFailure($"Failed to parse '{rawArg}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
                     }
 
-                    objects[objects.Length] = converted.Result;
+                    objects[current] = converted.Result;
                 }
 
                 current++;

@@ -4,7 +4,7 @@ namespace Advisor.Commands.Entities
 {
     /// <summary>
     /// Arguments of the OnCommandExecuted event.
-    /// <seealso cref="CommandHandler.OnCommandExecuted"/>
+    /// <seealso cref="CommandHandler.CommandExecuted"/>
     /// </summary>
     public struct CommandExecutedArgs
     {

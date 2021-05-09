@@ -293,8 +293,8 @@ namespace Advisor.Commands.Converters
         public ArgumentConverterResult ConvertArgument(CommandContext ctx, string input)
         {
             return string.IsNullOrWhiteSpace(input)
-                ? ArgumentConverterResult.FromSuccess(input)
-                : ArgumentConverterResult.Failed();
+                ? ArgumentConverterResult.Failed()
+                : ArgumentConverterResult.FromSuccess(input);
         }
     }
 

@@ -345,9 +345,10 @@ namespace Advisor.Commands.Services
                     var arg = new CommandArgument
                     {
                         ArgumentType = argType,
+                        Converter = _converters[argType],
                         Parameter = param,
-                        Remainder = remainder,
                         IsParams = isParams,
+                        Remainder = remainder,
                     };
                     
                     commandArguments.Add(arg);
