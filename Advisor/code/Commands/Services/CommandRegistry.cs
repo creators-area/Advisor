@@ -78,14 +78,12 @@ namespace Advisor.Commands.Services
             {
                 throw new InvalidOperationException("Type must implement IArgumentConverter.");
             }
-            
-            IArgumentConverter converter = Activator.CreateInstance(type) as IArgumentConverter;
 
-            if (converter == null)
+            if (Activator.CreateInstance(type) is not IArgumentConverter converter)
             {
                 throw new InvalidOperationException($"Could not instantiate argument converter of type '{type.Name}'.");
             }
-
+            
             var convertedType = converter.GetConvertedType();
             if (convertedType == null)
             {
