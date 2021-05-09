@@ -44,9 +44,9 @@ Cet addon est développé en collaboration avec la communauté (FR) Game Creator
 
 [<img src="https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1">](https://discord.gg/gca)
 
-De grands remerciements aux développeurs dans le serveur officiel de Facepunch, et aussi la communauté S&box Modding!
+De grands remerciements aux développeurs dans le serveur officiel de S&box, et aussi la communauté S&box Modding!
 
 *NB: Ces deux serveurs sont anglais.*
 
-[<img src="https://discordapp.com/api/guilds/258087425346240513/widget.png?style=banner1">](https://discord.gg/facepunch)
+[<img src="https://discordapp.com/api/guilds/833983068468936704/widget.png?style=banner1">](https://discord.gg/sbox)
 [<img src="https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1">](https://discord.gg/K4Jv7G3WUw)
