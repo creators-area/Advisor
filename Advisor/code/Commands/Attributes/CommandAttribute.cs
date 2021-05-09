@@ -20,6 +20,18 @@ namespace Advisor.Commands.Attributes
         /// The realm on which this command will be executed.
         /// </summary>
         public SandboxRealm ExecutionRealm { get; }
+        
+        /// <summary>
+        /// Whether or not this command should be hidden from users.
+        /// Does not stop the command from being visible in administrative UI, or usable.
+        /// </summary>
+        public bool IsHidden { get; }
+
+        /// <summary>
+        /// For commands that target other users, sets the permission level difference that targeted users can have.
+        /// I.e. if the permission level is LowerPermissionLevel but the target user has a higher permission level than you, the command will fail.
+        /// </summary>
+        public TargetPermission TargetPermissionLevel { get; }
 
         /// <summary>
         /// Whether or not this command's name is valid.
@@ -29,7 +41,7 @@ namespace Advisor.Commands.Attributes
             return !string.IsNullOrWhiteSpace(Name) && new Regex("^[a-zA-Z0-9_-]+$").IsMatch(Name);
         }
 
-        public CommandAttribute(string name, SandboxRealm executesOn)
+        public CommandAttribute(string name, SandboxRealm executesOn, bool hidden = false, TargetPermission targetLevel = TargetPermission.SamePermissionLevel)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -42,6 +54,8 @@ namespace Advisor.Commands.Attributes
             }
             
             ExecutionRealm = executesOn;
+            IsHidden = hidden;
+            TargetPermissionLevel = targetLevel;
         }
     }
 }

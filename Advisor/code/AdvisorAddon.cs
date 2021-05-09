@@ -1,8 +1,16 @@
-﻿using System.ComponentModel.Design;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
 using System.Reflection;
 using Advisor.Commands;
+using Advisor.Commands.Services;
 using Advisor.Configuration;
 using Advisor.Extensions;
+using Sandbox;
+
+// Feel free to check if ADVISOR is defined in your projects to enable/disable certain functionalities.
+#define ADVISOR
 
 namespace Advisor
 {
@@ -10,6 +18,7 @@ namespace Advisor
     /// Entry point of Advisor.
     /// I have no idea how this works in s&box right now though, so it'll likely need a small refactor.
     /// </summary>
+    [Library("advisor")]
     public class AdvisorAddon
     {
         private CommandRegistry _commandRegistry;

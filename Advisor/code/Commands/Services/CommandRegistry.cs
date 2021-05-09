@@ -9,7 +9,7 @@ using Advisor.Commands.Entities;
 using Advisor.Commands.Utils;
 using Advisor.Configuration;
 
-namespace Advisor.Commands
+namespace Advisor.Commands.Services
 {
     /// <summary>
     /// Handles the registration of commands and argument converters.

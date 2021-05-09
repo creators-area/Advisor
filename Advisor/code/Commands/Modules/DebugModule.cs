@@ -13,7 +13,7 @@ namespace Advisor.Commands.Modules
             Console.WriteLine("Hello, world!");
         }
 
-        [Command("fuck-this-player", SandboxRealm.Shared)]
+        [Command("fuck-this-player", SandboxRealm.Shared, targetLevel: TargetPermission.All)]
         public void FuckThisPlayer(CommandContext ctx, string lePlayer, bool b, int i, float f, long l, char c)
         {
             Console.WriteLine($"Fuck '{lePlayer}'!");

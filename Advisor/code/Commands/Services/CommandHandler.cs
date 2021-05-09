@@ -6,7 +6,7 @@ using Advisor.Commands.Utils;
 using Advisor.Configuration;
 using Sandbox;
 
-namespace Advisor.Commands
+namespace Advisor.Commands.Services
 {
     /// <summary>
     /// Handles commands from the chat and console.
@@ -67,6 +67,8 @@ namespace Advisor.Commands
             {
                 if (arguments.Length == 1)
                 {
+                    var failureArgs = CommandFailedArgs.FromUnknownCommand(first);
+                    OnCommandFailed(failureArgs);
                     // TODO: Tell player they've typed an unknown command.
                     // Could not find any command named 'first'.
                     return;
@@ -82,6 +84,8 @@ namespace Advisor.Commands
                         rootCommand = null;
                         if (arguments.Length == 1)
                         {
+                            var failureArgs = CommandFailedArgs.FromUnknownCommand(first);
+                            OnCommandFailed(failureArgs);
                             // TODO: Tell player they've typed an unknown command.
                             // Could not find any command named 'first'.
                             return;
@@ -96,6 +100,8 @@ namespace Advisor.Commands
             {
                 if (rootCommand == null)
                 {
+                    var failureArgs = CommandFailedArgs.FromUnknownCommand($"{first} {second}");
+                    OnCommandFailed(failureArgs);
                     // TODO: Tell player they've typed an unknown command.
                     // Could not find any command named 'first' or 'first second'.
                     return;
@@ -111,6 +117,8 @@ namespace Advisor.Commands
                         subCommand = null;
                         if (rootCommand == null)
                         {
+                            var failureArgs = CommandFailedArgs.FromUnknownCommand($"{first} {second}");
+                            OnCommandFailed(failureArgs);
                             // TODO: Tell player they've typed an unknown command.
                             // Could not find any command named 'first'.
                             return;
@@ -136,6 +144,7 @@ namespace Advisor.Commands
                     RawArguments = subRaw,
                 };
                 
+                // Execute the command now if it doesn't require any arguments.
                 if (subCommand.MethodDelegateNoParams != null)
                 {
                     subCommand.MethodDelegateNoParams(subContext);
@@ -147,6 +156,8 @@ namespace Advisor.Commands
                 {
                     if (rootCommand == null)
                     {
+                        var args = CommandFailedArgs.FromInvalidArguments(subContext, subResult);
+                        OnCommandFailed(args);
                         // TODO: Message the user with the failure reason.
                         return;
                     }
@@ -160,8 +171,25 @@ namespace Advisor.Commands
                     {
                         objs[i] = subResult.Arguments[i - 1];
                     }
-                    
-                    subCommand.ExecuteCommand(objs);
+
+                    try
+                    {
+                        subCommand.ExecuteCommand(objs);
+                        var successArgs = new CommandExecutedArgs
+                        {
+                            Context = subContext
+                        };
+                        
+                        OnCommandExecuted(successArgs);
+                    }
+                    catch (Exception e)
+                    {
+                        var failureArgs = CommandFailedArgs.FromCommandException(subContext, e);
+                        OnCommandFailed(failureArgs);
+                        AdvisorLog.Error(e, $"Command '{subContext.Command.FullName}' has thrown an exception during execution: ");
+                        // TODO: Tell user the command fucked up.
+                        return;
+                    }
                 }
             }
         }

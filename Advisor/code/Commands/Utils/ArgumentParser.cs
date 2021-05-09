@@ -1,4 +1,5 @@
-﻿using Advisor.Commands.Entities;
+﻿using System;
+using Advisor.Commands.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -120,14 +121,19 @@ namespace Advisor.Commands.Utils
         /// <param name="arguments"> The command arguments to parse the raw arguments for. </param>
         /// <param name="rawArguments">The raw arguments to parse.</param>
         /// <returns> An array of parsed and converted arguments for method invocation. </returns>
-        public static ArgumentParserResult Parse(IReadOnlyList<CommandArgument> arguments, string[] rawArguments)
+        public static ArgumentParserResult Parse(CommandContext ctx, IReadOnlyList<CommandArgument> arguments, List<string> rawArguments)
         {
+            if (arguments.Count == 0)
+            {
+                return ArgumentParserResult.FromSuccess(Array.Empty<object>());
+            }
+            
             var current = 0;
             var objects = new object[arguments.Count];
 
             foreach (var arg in arguments)
             {
-                if (rawArguments.Length <= current)
+                if (rawArguments.Count <= current)
                 {
                     // If it has a default value, we can just grab whatever it has.
                     if (arg.Parameter.HasDefaultValue)
@@ -136,7 +142,7 @@ namespace Advisor.Commands.Utils
                     }
                     else
                     {
-                        return ArgumentParserResult.FromFailure("Not enough arguments specified for the given command arguments.");
+                        return ArgumentParserResult.FromFailure($"Missing arguments: expected '{arg.Converter.GetFriendlyTypeName()}'");
                     }
                 }
                 else
@@ -148,10 +154,10 @@ namespace Advisor.Commands.Utils
                     {
                         var remainder = rawArguments
                             .Skip(current)
-                            .Take(rawArguments.Length - current)
+                            .Take(rawArguments.Count - current)
                             .Aggregate((curr, next) => $"{curr} {next}");
 
-                        var result = arg.Converter.ConvertArgument(remainder);
+                        var result = arg.Converter.ConvertArgument(ctx, remainder);
                         if (!result.IsSuccessful)
                         {
                             return ArgumentParserResult.FromFailure($"Failed to parse '{remainder}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
@@ -164,17 +170,17 @@ namespace Advisor.Commands.Utils
                     // Loop through the remaining raw arguments and add them to an array.
                     if (arg.IsParams)
                     {
-                        var paramsObjects = new object[rawArguments.Length - current];
-                        for (int i = current; i < rawArguments.Length; i++)
+                        var paramsObjects = new object[rawArguments.Count - current];
+                        for (int i = current; i < rawArguments.Count; i++)
                         {
                             var raw = rawArguments[i];
-                            var result = arg.Converter.ConvertArgument(raw);
+                            var result = arg.Converter.ConvertArgument(ctx, raw);
                             if (!result.IsSuccessful)
                             {
                                 return ArgumentParserResult.FromFailure($"Failed to parse '{raw}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
                             }
 
-                            paramsObjects[paramsObjects.Length] = result.Result;
+                            paramsObjects[current - i] = result.Result;
                         }
                         
                         objects[objects.Length] = paramsObjects;
@@ -182,7 +188,7 @@ namespace Advisor.Commands.Utils
                     }
                     
                     // Just read this object in this case.
-                    var converted = arg.Converter.ConvertArgument(rawArg);
+                    var converted = arg.Converter.ConvertArgument(ctx, rawArg);
                     if (!converted.IsSuccessful)
                     {
                         return ArgumentParserResult.FromFailure($"Failed to parse '{rawArg}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
