@@ -126,70 +126,166 @@ namespace Advisor.Commands.Services
                     }
                 }
             }
+
+            CommandExecutedArgs? rootCommandSuccess = null, subCommandSuccess = null;
+            CommandFailedArgs? rootCommandFailure = null, subCommandFailure = null;
+            bool rootSuccess, subSuccess;
             
             // Sub command takes priority.
             if (subCommand != null)
             {
-                var subRaw = subCommand.Arguments.Count > 0
+                var rawArgs = arguments.Length > 2
                     ? arguments.TakeLast(arguments.Length - 2).ToList()
                     : new List<string>();
                 
-                var subContext = new CommandContext
+                var context = new CommandContext
                 {
                     Advisor = _advisor,
                     Caller = sender,
                     Command = subCommand,
                     Message = text,
                     RanOnConsole = false,
-                    RawArguments = subRaw,
+                    InternalRawArguments = rawArgs
                 };
                 
-                // Execute the command now if it doesn't require any arguments.
-                if (subCommand.MethodDelegateNoParams != null)
+                subSuccess = TryExecuteCommand(context, out subCommandSuccess, out subCommandFailure);
+                if (subSuccess)
                 {
-                    subCommand.MethodDelegateNoParams(subContext);
                     return;
                 }
+            }
+            
+            // Execute the root command if any.
+            if (rootCommand != null)
+            {
+                var rawArgs = arguments.Length > 1
+                    ? arguments.TakeLast(arguments.Length - 1).ToList()
+                    : new List<string>();
                 
-                var subResult = ArgumentParser.Parse(subContext, subCommand.Arguments, subRaw);
-                if (!subResult.IsSuccessful)
+                var context = new CommandContext
                 {
-                    if (rootCommand == null)
-                    {
-                        var args = CommandFailedArgs.FromInvalidArguments(subContext, subResult);
-                        OnCommandFailed(args);
-                        // TODO: Message the user with the failure reason.
-                        return;
-                    }
+                    Advisor = _advisor,
+                    Caller = sender,
+                    Command = rootCommand,
+                    Message = text,
+                    RanOnConsole = false,
+                    InternalRawArguments = rawArgs
+                };
+                
+                rootSuccess = TryExecuteCommand(context, out rootCommandSuccess, out rootCommandFailure);
+                if (rootSuccess)
+                {
+                    return;
                 }
-                else
+            }
+            
+            // If we're here, it means one or two commands failed to execute.
+            // So let's just notify the user in chat, print stuff in the console if needed and call it a day.
+            if (rootCommand != null)
+            {
+                var failure = rootCommandFailure!.Value;
+                switch (failure.Reason)
                 {
-                    // Execute the command.
-                    var objs = new object[subResult.Arguments.Length + 1];
-                    objs[0] = subContext;
-                    for (int i = 1; i < objs.Length; i++)
-                    {
-                        objs[i] = subResult.Arguments[i - 1];
-                    }
+                    case CommandFailureReason.UnknownCommand:
+                        throw new InvalidOperationException(
+                            $"A command returned a CommandFailureReason of 'UnknownCommand'. This should never happen if we've found it!");
+                    case CommandFailureReason.ArgumentParserError:
+                        // TODO: Notify user of unknown arguments.
+                        throw new NotImplementedException();
+                    case CommandFailureReason.ExceptionThrown:
+                        // TODO: Notify user of command exception.
+                        throw new NotImplementedException();
+                    default:
+                        // TODO: Notify user of unknown error (notify server owner to check console and pester me).
+                        throw new NotImplementedException();
+                }
+            }
+            
+            if (subCommand != null)
+            {
+                var failure = subCommandFailure!.Value;
+                switch (failure.Reason)
+                {
+                    case CommandFailureReason.UnknownCommand:
+                        throw new InvalidOperationException(
+                            $"A command returned a CommandFailureReason of 'UnknownCommand'. This should never happen if we've found it!");
+                    case CommandFailureReason.ArgumentParserError:
+                        // TODO: Notify user of unknown arguments.
+                        throw new NotImplementedException();
+                    case CommandFailureReason.ExceptionThrown:
+                        // TODO: Notify user of command exception.
+                        throw new NotImplementedException();
+                    default:
+                        // TODO: Notify user of unknown error (notify server owner to check console and pester me).
+                        throw new NotImplementedException();
+                }
+            }
+        }
 
-                    try
+        // TODO: Clean this up a little in the future.
+        private bool TryExecuteCommand(CommandContext context, out CommandExecutedArgs? successArgs, 
+            out CommandFailedArgs? failureArgs)
+        {
+            successArgs = null;
+            failureArgs = null;
+            
+            var command = context.Command;
+            var arguments = context.RawArguments;
+
+            // Execute the command now if it doesn't require any arguments.
+            if (command.MethodDelegateNoParams != null)
+            {
+                try
+                {
+                    command.MethodDelegateNoParams(context);
+                    var args = new CommandExecutedArgs
                     {
-                        subCommand.ExecuteCommand(objs);
-                        var successArgs = new CommandExecutedArgs
-                        {
-                            Context = subContext
-                        };
-                        
-                        OnCommandExecuted(successArgs);
-                    }
-                    catch (Exception e)
+                        Context = context,
+                    };
+                    OnCommandExecuted(args);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+
+            }
+
+            var subResult = ArgumentParser.Parse(context, command.Arguments, context.InternalRawArguments);
+            if (!subResult.IsSuccessful)
+            {
+                failureArgs = CommandFailedArgs.FromInvalidArguments(context, subResult);
+                OnCommandFailed(failureArgs.Value);
+                return false;
+            }
+            else
+            {
+                // Execute the command.
+                var objs = new object[subResult.Arguments.Length + 1];
+                objs[0] = context;
+                for (int i = 1; i < objs.Length; i++)
+                {
+                    objs[i] = subResult.Arguments[i - 1];
+                }
+
+                try
+                {
+                    command.ExecuteCommand(objs);
+                    successArgs = new CommandExecutedArgs
                     {
-                        var failureArgs = CommandFailedArgs.FromCommandException(subContext, e);
-                        OnCommandFailed(failureArgs);
-                        AdvisorLog.Error(e, $"Command '{subContext.Command.FullName}' has thrown an exception during execution: ");
-                        // TODO: Tell user the command fucked up.
-                        return;
-                    }
+                        Context = context
+                    };
+
+                    OnCommandExecuted(successArgs.Value);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    failureArgs = CommandFailedArgs.FromCommandException(context, e);
+                    OnCommandFailed(failureArgs.Value);
+                    AdvisorLog.Error(e, $"Command '{context.Command.FullName}' has thrown an exception during execution: ");
+                    return false;
                 }
             }
         }

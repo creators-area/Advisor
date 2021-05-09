@@ -34,10 +34,15 @@ namespace Advisor.Commands.Entities
         /// TODO: Check if possible.
         /// </summary>
         public string Message { get; internal set; }
-        
+
         /// <summary>
         /// The raw arguments in string from (before they were converted), if any.
         /// </summary>
-        public IReadOnlyList<string> RawArguments { get; internal set; }
+        public IReadOnlyList<string> RawArguments => InternalRawArguments;
+        
+        /// <summary>
+        /// Mutable raw arguments for internal usage only.
+        /// </summary>
+        internal List<string> InternalRawArguments { get; set; }
     }
 }
