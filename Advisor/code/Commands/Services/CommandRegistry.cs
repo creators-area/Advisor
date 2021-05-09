@@ -6,6 +6,7 @@ using System.Reflection;
 using Advisor.Commands.Attributes;
 using Advisor.Commands.Converters;
 using Advisor.Commands.Entities;
+using Advisor.Commands.Utils;
 using Advisor.Configuration;
 
 namespace Advisor.Commands
@@ -48,7 +49,7 @@ namespace Advisor.Commands
             {
                 throw new ArgumentNullException(nameof(assembly));
             }
-
+            
             var converters = assembly.GetTypes()
                 .Where(t => typeof(IArgumentConverter).IsAssignableFrom(t)
                             && !t.IsNested && t.IsPublic && !t.IsInterface);
@@ -88,16 +89,16 @@ namespace Advisor.Commands
             var convertedType = converter.GetConvertedType();
             if (convertedType == null)
             {
-                throw new InvalidOperationException($"Converter '{type.Name}' returned null converted type.");
+                throw new InvalidOperationException($"Converter '{type.FullName}' returned null converted type.");
             }
 
             if (_converters.ContainsKey(convertedType))
             {
-                // TODO: Warning log, attempted to register converter but one already exists for converted type.
+                AdvisorLog.Warning($"Cannot register converter '{type.FullName}' as a converter for type '{convertedType.FullName}' already exists.");
                 return;
             }
 
-            Console.WriteLine($"Advisor: Registered argument converter '{type.Name}' for type '{converter.GetConvertedType().Name}'");
+            AdvisorLog.Debug($"Registered argument converter '{type.FullName}' for type '{converter.GetConvertedType().FullName}'");
             _converters.Add(convertedType, converter);
         }
 
@@ -200,7 +201,7 @@ namespace Advisor.Commands
             
             if (Activator.CreateInstance(type) is not CommandModule module)
             {
-                throw new InvalidOperationException($"Failed to instantiate command module type {type.Name}.");
+                throw new InvalidOperationException($"Failed to instantiate command module type '{type.Name}'.");
             }
 
             module.Category = categoryAttr.Name;
@@ -258,9 +259,8 @@ namespace Advisor.Commands
                 // Make sure that there's no existing command with that name.
                 if (_rootCommands.ContainsKey(commandAttr.Name.ToLower()))
                 {
-                    // TODO: Change to console log in S&box.
-                    throw new InvalidOperationException(
-                        $"Cannot register command '{commandAttr.Name}' from module '{module.GetType().Name}' as another root command with that name exists.");
+                    AdvisorLog.Warning($"Cannot register command '{commandAttr.Name}' from module '{module.GetType().Name}' as another root command with that name exists.");
+                    return;
                 }
             }
             else
@@ -270,9 +270,8 @@ namespace Advisor.Commands
                     var dict = _categorizedCommands[module.Prefix];
                     if (dict.ContainsKey(commandAttr.Name.ToLower()))
                     {
-                        // TODO: Change to console log in S&box.
-                        throw new InvalidOperationException(
-                            $"Cannot register command '{module.Prefix} {commandAttr.Name}' from module '{module.GetType().Name}' as another command with that name exists.");
+                        AdvisorLog.Warning($"Cannot register command '{module.Prefix} {commandAttr.Name}' from module '{module.GetType().Name}' as another command with that name exists.");
+                        return;
                     }
                 }
             }
@@ -363,8 +362,8 @@ namespace Advisor.Commands
                 Arguments = commandArguments,
                 ParentModule = module,
                 Name = commandAttr.Name,
-                ExecutionRealm = commandAttr.ExecutionRealm,
                 Method = info,
+                CommandAttribute = commandAttr,
             };
             
             cmd.FullName = !string.IsNullOrWhiteSpace(module.Prefix) 
@@ -380,10 +379,6 @@ namespace Advisor.Commands
                         break;
                     case AliasAttribute alias: cmd.Aliases = alias.Aliases;
                         break;
-                    case TargetAttribute target: cmd.TargetPermissionLevel = target.TargetPermissionLevel;
-                        break;
-                    case HiddenAttribute: cmd.IsHidden = true;
-                        break;
                 }
             }
             
@@ -393,7 +388,7 @@ namespace Advisor.Commands
                 // Dynamically generate the delegate for the command's method.
                 var paramTypes = info.GetParameters()
                     .Select(p => p.ParameterType)
-                    .Concat(new[] { info.ReturnType })
+                    .Append(info.ReturnType)
                     .ToArray();
                 
                 // Not as fast as a known delegate signature, and requires executing the command with DynamicInvoke().
@@ -407,8 +402,7 @@ namespace Advisor.Commands
                 cmd.MethodDelegateNoParams = info.CreateDelegate<Action<CommandContext>>(module);
             }
             
-            // TODO: Change to S&box log.
-            Console.WriteLine($"Registered command {cmd.Name} with {cmd.Arguments.Count} arguments.");
+            AdvisorLog.Debug($"Registered command '{cmd.Name}' with {cmd.Arguments.Count} arguments.");
             module.InternalCommands.Add(cmd);
 
             if (module.Prefix == null)
@@ -424,9 +418,8 @@ namespace Advisor.Commands
                     }
                     else
                     {
-                        // TODO: Change to log in S&box.
-                        throw new InvalidOperationException(
-                            $"Command '{cmd.Name}' in module {module.GetType().Name}' has an alias '{alias}' that conflicts with another command!");
+                        AdvisorLog.Error($"Command '{cmd.Name}' in module 'w{module.GetType().Name}' has an alias '{alias}' that conflicts with another command!");
+                        return;
                     }
                 }
             }
@@ -449,9 +442,8 @@ namespace Advisor.Commands
                     }
                     else
                     {
-                        // TODO: Change to log in S&box.
-                        throw new InvalidOperationException(
-                            $"Command '{module.Prefix} {cmd.Name}' in module {module.GetType().Name}' has an alias '{alias}' that conflicts with another command!");
+                        AdvisorLog.Error($"Command '{module.Prefix} {cmd.Name}' in module {module.GetType().Name}' has an alias '{alias}' that conflicts with another command!");
+                        return;
                     }
                 }
             }
