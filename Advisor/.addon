@@ -1,9 +1,0 @@
-{
-  "name": "Advisor",
-  "sharedassets": "*.*",
-  "depends":
-  [
-    "base"
-  ],
-  "gamemodes": []
-}

@@ -3,33 +3,36 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Reflection;
 using Advisor.Commands.Services;
 using Advisor.Configuration;
 using Advisor.Extensions;
+using Advisor.Utils;
 using Sandbox;
 
 namespace Advisor
 {
     /// <summary>
     /// Entry point of Advisor.
-    /// I have no idea how this works in s&box right now though, so it'll likely need a small refactor.
     /// </summary>
-    [Library("advisor")]
-    public class AdvisorAddon
+    [Library("advisor", Title = "Advisor")]
+    public class AdvisorCore : Game
     {
         private CommandRegistry _commandRegistry;
         private CommandHandler _commandHandler;
         private ConfigurationService _configuration;
         private ServiceContainer _services;
 
-        public AdvisorAddon()
+        public AdvisorCore()
         {
             InitializeAdvisor();
         }
 
         private void InitializeAdvisor()
         {
+	        AdvisorLog.Info("Initializing Advisor Core...");
+	        var sw = new Stopwatch();
             _services = new ServiceContainer();
 
             _configuration = new ConfigurationService();
@@ -45,6 +48,8 @@ namespace Advisor
 
             _commandHandler = new CommandHandler(this);
             _services.AddService(typeof(CommandHandler), _commandHandler);
+            
+            AdvisorLog.Info($"Successfully initialized Advisor Core in {sw.ElapsedMilliseconds} ms");
         }
 
         public T GetService<T>()

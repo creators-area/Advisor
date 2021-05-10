@@ -11,7 +11,7 @@ namespace Advisor.Commands.Entities
         /// <summary>
         /// A reference to the AdvisorAddon instance.
         /// </summary>
-        public AdvisorAddon Advisor { get; internal set; }
+        public AdvisorCore Advisor { get; internal set; }
         
         /// <summary>
         /// The command that was ran.

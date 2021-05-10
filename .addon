@@ -1,0 +1,20 @@
+{
+    "name": "Advisor",
+    "version": "0.0.1",
+    "sharedassets": "*.*",
+    
+    "depends": 
+    [
+        "base",
+        "citizen"
+    ],
+
+    "gamemodes": 
+    [
+        {
+            "name": "advisor",
+            "title": "Advisor Development",
+            "description": "Development gamemode for the administration framework Advisor."
+        }
+    ]
+}

@@ -1,6 +1,7 @@
 ﻿using System;
+using Sandbox;
 
-namespace Advisor.Commands.Utils
+namespace Advisor.Utils
 {
     /// <summary>
     /// Logging utility, wraps around s&box log to make them clear.
@@ -8,13 +9,15 @@ namespace Advisor.Commands.Utils
     /// </summary>
     public static class AdvisorLog
     {
+	    private static Logger _log = new Logger( "Advisor" );
+	    
         /// <summary>
         /// Outputs an informative message to the console.
         /// </summary>
         /// <param name="message"> The information to output. </param>
         public static void Info(string message)
         {
-            Console.WriteLine($"[Advisor]: {message}");
+	        _log.Info(message);
         }
 
         /// <summary>
@@ -23,7 +26,7 @@ namespace Advisor.Commands.Utils
         /// <param name="message"> The warning to output. </param>
         public static void Warning(string message)
         {
-            Console.WriteLine($"[Advisor]: {message}");
+            _log.Warning(message);
         }
 
         /// <summary>
@@ -33,8 +36,7 @@ namespace Advisor.Commands.Utils
         /// <param name="message"> The error to output. </param>
         public static void Error(Exception exception, string message)
         {
-            Console.WriteLine($"[Advisor]: {message}");
-            Console.WriteLine(exception.StackTrace);
+	        _log.Error(exception, message);
         }
         
         /// <summary>
@@ -43,7 +45,7 @@ namespace Advisor.Commands.Utils
         /// <param name="message"> The error to output. </param>
         public static void Error(string message)
         {
-            Console.WriteLine($"[Advisor]: {message}");
+            _log.Error(message);
         }
 
         /// <summary>
@@ -52,7 +54,7 @@ namespace Advisor.Commands.Utils
         /// <param name="message"> The debug message to output. </param>
         public static void Debug(string message)
         {
-            Console.WriteLine($"[Advisor] [DEBUG]: {message}");
+	        _log.Info($"[DEBUG]: {message}");
         }
     }
 }

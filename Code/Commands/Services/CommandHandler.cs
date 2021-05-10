@@ -4,6 +4,7 @@ using System.Linq;
 using Advisor.Commands.Entities;
 using Advisor.Commands.Utils;
 using Advisor.Configuration;
+using Advisor.Utils;
 using Sandbox;
 
 namespace Advisor.Commands.Services
@@ -13,7 +14,7 @@ namespace Advisor.Commands.Services
     /// </summary>
     public class CommandHandler
     {
-        private readonly AdvisorAddon _advisor;
+        private readonly AdvisorCore _advisor;
         private readonly CommandRegistry _commands;
         private readonly ConfigurationService _configService;
 
@@ -27,7 +28,7 @@ namespace Advisor.Commands.Services
         /// </summary>
         public event Action<CommandFailedArgs> CommandFailed;
         
-        internal CommandHandler(AdvisorAddon advisor)
+        internal CommandHandler(AdvisorCore advisor)
         {
             _advisor = advisor;
             _commands = advisor.GetService<CommandRegistry>();

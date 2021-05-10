@@ -6,9 +6,8 @@ using System.Reflection;
 using Advisor.Commands.Attributes;
 using Advisor.Commands.Converters;
 using Advisor.Commands.Entities;
-using Advisor.Commands.Utils;
 using Advisor.Configuration;
-
+using Advisor.Utils;
 namespace Advisor.Commands.Services
 {
     /// <summary>
@@ -16,7 +15,7 @@ namespace Advisor.Commands.Services
     /// </summary>
     public class CommandRegistry
     {
-        private readonly AdvisorAddon _advisor;
+        private readonly AdvisorCore _advisor;
         private readonly ConfigurationService _configuration;
         
         private Dictionary<Type, CommandModule> _loadedModules;
@@ -27,7 +26,7 @@ namespace Advisor.Commands.Services
         // Commands that are executed using a category prefix.
         private Dictionary<string, Dictionary<string, Command>> _categorizedCommands;
 
-        internal CommandRegistry(AdvisorAddon advisor)
+        internal CommandRegistry(AdvisorCore advisor)
         {
             _advisor = advisor;
             _configuration = advisor.GetService<ConfigurationService>();
