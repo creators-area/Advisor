@@ -2,10 +2,11 @@
 using Advisor.Commands.Attributes;
 using Advisor.Commands.Entities;
 using Advisor.Enums;
+using Sandbox;
 
 namespace Advisor.Commands.Modules
 {
-    [Category("Advisor: Debug", "debug")]
+	[Category("Advisor: Debug", "debug")]
     public class DebugModule : CommandModule
     {
         [Command("test", SandboxRealm.Shared)]

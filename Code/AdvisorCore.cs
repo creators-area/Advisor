@@ -26,7 +26,7 @@ namespace Advisor
 
         public AdvisorCore()
         {
-            InitializeAdvisor();
+	        InitializeAdvisor();
         }
 
         private void InitializeAdvisor()
@@ -34,11 +34,11 @@ namespace Advisor
 	        AdvisorLog.Info("Initializing Advisor Core...");
 	        var sw = new Stopwatch();
             _services = new ServiceContainer();
-
+            Library.Create<int>( typeof(int) );
             _configuration = new ConfigurationService();
             _configuration.LoadConfiguration();
             _services.AddService(typeof(ConfigurationService), _configuration);
-                        
+
             _commandRegistry = new CommandRegistry(this);
             _services.AddService(typeof(CommandRegistry), _commandRegistry);
 

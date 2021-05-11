@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Advisor.Commands.Attributes;
 using Advisor.Commands.Entities;
 using Sandbox;
 
@@ -8,6 +9,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into a boolean.
     /// </summary>
+    [ArgumentConverter]
     public class BoolConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(bool);
@@ -54,6 +56,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into an unsigned byte.
     /// </summary>
+    [ArgumentConverter]
     public class ByteConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(byte);
@@ -75,6 +78,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into a signed byte.
     /// </summary>
+    [ArgumentConverter]
     public class SByteConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(sbyte);
@@ -96,6 +100,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into a signed short.
     /// </summary>
+    [ArgumentConverter]
     public class ShortConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(short);
@@ -117,6 +122,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into an unsigned short.
     /// </summary>
+    [ArgumentConverter]
     public class UShortConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(ushort);
@@ -138,6 +144,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into a signed integer.
     /// </summary>
+    [ArgumentConverter]
     public class IntConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(int);
@@ -159,6 +166,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into an unsigned integer.
     /// </summary>
+    [ArgumentConverter]
     public class UIntConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(uint);
@@ -180,6 +188,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into a signed long.
     /// </summary>
+    [ArgumentConverter]
     public class LongConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(long);
@@ -200,6 +209,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into an unsigned long.
     /// </summary>
+    [ArgumentConverter]
     public class ULongConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(ulong);
@@ -221,6 +231,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into a float.
     /// </summary>
+    [ArgumentConverter]
     public class FloatConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(float);
@@ -242,6 +253,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into a double.
     /// </summary>
+    [ArgumentConverter]
     public class DoubleConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(double);
@@ -262,6 +274,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// Converts a string argument into a decimal.
     /// </summary>
+    [ArgumentConverter]
     public class DecimalConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(decimal);
@@ -283,6 +296,7 @@ namespace Advisor.Commands.Converters
     /// <summary>
     /// For simplicity's sake, so I don't have to check parameter types all the time.
     /// </summary>
+    [ArgumentConverter]
     public class StringConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(string);
@@ -299,8 +313,9 @@ namespace Advisor.Commands.Converters
     }
 
     /// <summary>
-    /// Converts a string argument intto a char. 
+    /// Converts a string argument into a char. 
     /// </summary>
+    [ArgumentConverter]
     public class CharConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(char);
@@ -319,6 +334,10 @@ namespace Advisor.Commands.Converters
         }
     }
 
+    /// <summary>
+    /// Converts a string argument into a player.
+    /// </summary>
+    [ArgumentConverter]
     public class PlayerConverter : IArgumentConverter
     {
         public Type GetConvertedType() => typeof(Player);

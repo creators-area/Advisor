@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Advisor.Commands.Attributes;
+using Sandbox;
 
 namespace Advisor.Commands.Entities
 {
     /// <summary>
     /// The base class for any module meant to create Advisor commands.
     /// </summary>
+    [Library]
     public class CommandModule
     {
         /// <summary>

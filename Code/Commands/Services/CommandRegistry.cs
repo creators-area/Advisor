@@ -8,6 +8,8 @@ using Advisor.Commands.Converters;
 using Advisor.Commands.Entities;
 using Advisor.Configuration;
 using Advisor.Utils;
+using Sandbox;
+
 namespace Advisor.Commands.Services
 {
     /// <summary>
@@ -77,8 +79,14 @@ namespace Advisor.Commands.Services
             {
                 throw new InvalidOperationException("Type must implement IArgumentConverter.");
             }
+            
+            if ( !type.IsDefined( typeof(ArgumentConverterAttribute) ) )
+            {
+	            throw new InvalidOperationException(
+		            $"Argument converter '{type.FullName}' does not have an [ArgumentConverter] attribute! Please add it as s&box requires it." );
+            }
 
-            if (Activator.CreateInstance(type) is not IArgumentConverter converter)
+            if (Library.Create<IArgumentConverter>(type) is not {} converter)
             {
                 throw new InvalidOperationException($"Could not instantiate argument converter of type '{type.Name}'.");
             }
@@ -136,12 +144,8 @@ namespace Advisor.Commands.Services
             }
 
             var types = assembly.GetTypes()
-                .Where(t =>
-                {
-                    var typeInfo = t.GetTypeInfo();
-                    return !typeInfo.IsNested && typeInfo.IsPublic
-                        && !typeInfo.IsGenericType && t.IsSubclassOf(typeof(CommandModule));
-                });
+                .Where(t => !t.IsNested && t.IsPublic
+                        && !t.IsGenericType && t.IsSubclassOf(typeof(CommandModule)) );
 
             foreach (var commandModule in types)
             {
@@ -171,9 +175,8 @@ namespace Advisor.Commands.Services
             {
                 return;
             }
-
-            var typeInfo = type.GetTypeInfo();
-            if (typeInfo.IsNested || !typeInfo.IsPublic || typeInfo.IsGenericType)
+            
+            if (type.IsNested || !type.IsPublic || type.IsGenericType)
             {
                 throw new ArgumentException("Type must be public, non generic and not nested.");
             }
@@ -196,7 +199,7 @@ namespace Advisor.Commands.Services
                 throw new ArgumentException("Command module prefix can only consist of characters A-Z, 0-9, -, _");
             }
             
-            if (Activator.CreateInstance(type) is not CommandModule module)
+            if (Library.Create<CommandModule>(type) is not {} module)
             {
                 throw new InvalidOperationException($"Failed to instantiate command module type '{type.Name}'.");
             }
@@ -210,7 +213,7 @@ namespace Advisor.Commands.Services
             // Register every declared method that fits a command's signature (Context + other arguments).
             // Right now we'll grab all methods with the CommandAttribute and throw if any is wrong.
             // That'll let the developer know they need to fix their stuff.
-            var commandMethods = typeInfo.DeclaredMethods
+            var commandMethods = type.GetMethods()
                 .Where(m => m.IsDefined(typeof(CommandAttribute)));
 
             foreach (var method in commandMethods)
@@ -391,7 +394,7 @@ namespace Advisor.Commands.Services
                 
                 // Not as fast as a known delegate signature, and requires executing the command with DynamicInvoke().
                 var delType = Expression.GetDelegateType(paramTypes);
-                cmd.MethodDelegate = Delegate.CreateDelegate(delType, module, info);   
+                cmd.MethodDelegate = Delegate.CreateDelegate(delType, module, info);
             }
             else
             {

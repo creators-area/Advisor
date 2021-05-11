@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Sandbox;
 
 namespace Advisor.Commands.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class CategoryAttribute : Attribute
+    public class CategoryAttribute : LibraryAttribute
     {
         /// <summary>
         /// The display name of the category.
         /// </summary>
-        public string Name { get; }
+        public new string Name { get; }
         
         /// <summary>
         /// The name used to create permissions from commands in this module.
