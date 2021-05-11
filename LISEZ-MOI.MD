@@ -12,9 +12,7 @@
 
 ## Mais attends, S&box n'est pas encore sorti?!
 
-En effet, ce framework est écrit de manière agnostique pour pouvoir être porté vers S&box lorsque nous y aurons accès.
-
-Donc, nous n'aurons probablement pas beaucoup d'implémentation réseau, graphique ou de base de données en attendant de savoir ce que nous pourrons faire avec S&box.   
+En effet, cependant j'y ai tout de même accès!
 
 ## Qu'est ce qu'λdvisor?
 
