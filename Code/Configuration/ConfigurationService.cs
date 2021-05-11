@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+//using System.IO;
 using System.Text.Json;
 
 namespace Advisor.Configuration
@@ -35,31 +35,31 @@ namespace Advisor.Configuration
             
             var json = JsonSerializer.Serialize(Configuration, _serializerOptions);
             
-            File.WriteAllText(ConfigurationTemplateName, json);
-            if (!File.Exists(ConfigurationFileName))
-            {
-                File.WriteAllText(ConfigurationFileName, json);
-            }
+            // File.WriteAllText(ConfigurationTemplateName, json);
+            // if (!File.Exists(ConfigurationFileName))
+            // {
+            //     File.WriteAllText(ConfigurationFileName, json);
+            // }
         }
 
         public bool LoadConfiguration()
         {
-            if (File.Exists(ConfigurationFileName))
-            {
-                var json = File.ReadAllText(ConfigurationFileName);
-                try
-                {
-                    Configuration = JsonSerializer.Deserialize<ConfigurationModel>(json, _serializerOptions);
-                    OnConfigurationModified(Configuration);
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    // TODO: Log to S&box logger
-                    Console.WriteLine($"Failed to load configuration file: {e.Message}");
-                    return false;
-                }
-            }
+            // if (File.Exists(ConfigurationFileName))
+            // {
+            //     var json = File.ReadAllText(ConfigurationFileName);
+            //     try
+            //     {
+            //         Configuration = JsonSerializer.Deserialize<ConfigurationModel>(json, _serializerOptions);
+            //         OnConfigurationModified(Configuration);
+            //         return true;
+            //     }
+            //     catch (Exception e)
+            //     {
+            //         // TODO: Log to S&box logger
+            //         Console.WriteLine($"Failed to load configuration file: {e.Message}");
+            //         return false;
+            //     }
+            // }
             
             // TODO: Ditto
             Console.WriteLine($"Could not find {ConfigurationFileName}, resetting to defaults.");
@@ -73,7 +73,7 @@ namespace Advisor.Configuration
         {
             var json = JsonSerializer.Serialize(Configuration, _serializerOptions);
             
-            File.WriteAllText(ConfigurationFileName, json);
+            // File.WriteAllText(ConfigurationFileName, json);
         }
     }
 }
