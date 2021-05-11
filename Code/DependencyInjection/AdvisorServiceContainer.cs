@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Advisor.DependencyInjection
 {
-	public class AdvisorServiceContainer : IServiceProvider
+	// TODO: Re-implement IServiceProvider once it is whitelisted. If ever.
+	public class AdvisorServiceContainer //: IServiceProvider
 	{
 		private Dictionary<Type, object> _services;
 		
