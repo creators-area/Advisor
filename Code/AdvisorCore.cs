@@ -1,13 +1,11 @@
 ﻿// Feel free to check if ADVISOR is defined in your projects to enable/disable certain functionalities.
 #define ADVISOR
 
-using System;
-using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Reflection;
 using Advisor.Commands.Services;
 using Advisor.Configuration;
-using Advisor.Extensions;
+using Advisor.DependencyInjection;
 using Advisor.Utils;
 using Sandbox;
 
@@ -22,45 +20,48 @@ namespace Advisor
         private CommandRegistry _commandRegistry;
         private CommandHandler _commandHandler;
         private ConfigurationService _configuration;
-        private ServiceContainer _services;
+        private AdvisorServiceContainer _services;
 
         public AdvisorCore()
         {
 	        InitializeAdvisor();
         }
 
+        /// <summary>
+        /// Get the service container of Advisor.
+        /// </summary>
+        /// <returns> The IServiceProvider Advisor uses for Dependency Injection </returns>
+        public AdvisorServiceContainer GetServices() => _services;
+
+        /// <summary>
+        /// Returns a service by type.
+        /// Shorthand version of GetServices().GetService<T>();
+        /// </summary>
+        /// <typeparam name="T"> The type of the service to get. </typeparam>
+        /// <returns> The service if it exists, else null. </returns>
+        public T GetService<T>() where T : class => _services.GetService<T>();
+        
         private void InitializeAdvisor()
         {
 	        AdvisorLog.Info("Initializing Advisor Core...");
 	        var sw = new Stopwatch();
-            _services = new ServiceContainer();
-            Library.Create<int>( typeof(int) );
+            _services = new AdvisorServiceContainer(this);
+
             _configuration = new ConfigurationService();
             _configuration.LoadConfiguration();
-            _services.AddService(typeof(ConfigurationService), _configuration);
+            _services.AddService(_configuration);
 
             _commandRegistry = new CommandRegistry(this);
-            _services.AddService(typeof(CommandRegistry), _commandRegistry);
+            _services.AddService(_commandRegistry);
 
             // Register Advisor's argument converters and commands.
             _commandRegistry.RegisterArgumentConverters(Assembly.GetExecutingAssembly());
             _commandRegistry.RegisterCommandModules(Assembly.GetExecutingAssembly());
 
             _commandHandler = new CommandHandler(this);
-            _services.AddService(typeof(CommandHandler), _commandHandler);
+            _services.AddService(_commandHandler);
             
             AdvisorLog.Info($"Successfully initialized Advisor Core in {sw.ElapsedMilliseconds} ms");
-        }
-
-        public T GetService<T>()
-        {
-            var svc = _services.GetRequiredService<T>();
-            if (svc == null)
-            {
-                throw new InvalidOperationException($"Could not get unknown service '{typeof(T).FullName}'");
-            }
-
-            return svc;
         }
     }
 }
