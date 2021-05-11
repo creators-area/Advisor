@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using Advisor.Commands.Attributes;
 using Advisor.Commands.Converters;
@@ -392,9 +391,10 @@ namespace Advisor.Commands.Services
                     .Append(info.ReturnType)
                     .ToArray();
                 
+                // TODO: System.Linq.Expressions 
                 // Not as fast as a known delegate signature, and requires executing the command with DynamicInvoke().
-                var delType = Expression.GetDelegateType(paramTypes);
-                cmd.MethodDelegate = Delegate.CreateDelegate(delType, module, info);
+                // var delType = Expression.GetDelegateType(paramTypes);
+                // cmd.MethodDelegate = Delegate.CreateDelegate(delType, module, info);
             }
             else
             {

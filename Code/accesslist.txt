@@ -1,0 +1,177 @@
+Sandbox.Game/Sandbox.Library.Create<T>( System.Type )
+Sandbox.Game/Sandbox.Player
+Sandbox.System/Sandbox.LibraryAttribute
+Sandbox.System/Sandbox.LibraryAttribute..ctor()
+Sandbox.System/Sandbox.Logger
+Sandbox.System/Sandbox.Logger..ctor( System.String )
+Sandbox.System/Sandbox.Logger.Error( System.Exception, System.String )
+Sandbox.System/Sandbox.Logger.Error( System.String )
+Sandbox.System/Sandbox.Logger.Info( System.String )
+Sandbox.System/Sandbox.Logger.Warning( System.String )
+System.Console/System.Console.WriteLine( System.Object )
+System.Console/System.Console.WriteLine( System.String )
+System.Linq/System.Linq.Enumerable.Aggregate<TSource>( System.Collections.Generic.IEnumerable`1<TSource>, System.Func`3<TSource,TSource,TSource> )
+System.Linq/System.Linq.Enumerable.Append<TSource>( System.Collections.Generic.IEnumerable`1<TSource>, TSource )
+System.Linq/System.Linq.Enumerable.Select<TSource,TResult>( System.Collections.Generic.IEnumerable`1<TSource>, System.Func`2<TSource,TResult> )
+System.Linq/System.Linq.Enumerable.Skip<TSource>( System.Collections.Generic.IEnumerable`1<TSource>, System.Int32 )
+System.Linq/System.Linq.Enumerable.Take<TSource>( System.Collections.Generic.IEnumerable`1<TSource>, System.Int32 )
+System.Linq/System.Linq.Enumerable.TakeLast<TSource>( System.Collections.Generic.IEnumerable`1<TSource>, System.Int32 )
+System.Linq/System.Linq.Enumerable.ToArray<TSource>( System.Collections.Generic.IEnumerable`1<TSource> )
+System.Linq/System.Linq.Enumerable.ToList<TSource>( System.Collections.Generic.IEnumerable`1<TSource> )
+System.Linq/System.Linq.Enumerable.Where<TSource>( System.Collections.Generic.IEnumerable`1<TSource>, System.Func`2<TSource,System.Boolean> )
+System.Private.CoreLib/System.Action`1
+System.Private.CoreLib/System.Action`1.Invoke( T )
+System.Private.CoreLib/System.ArgumentException..ctor( System.String )
+System.Private.CoreLib/System.ArgumentNullException..ctor( System.String )
+System.Private.CoreLib/System.Array.Empty<T>()
+System.Private.CoreLib/System.Attribute
+System.Private.CoreLib/System.Attribute..ctor()
+System.Private.CoreLib/System.AttributeUsageAttribute
+System.Private.CoreLib/System.Boolean
+System.Private.CoreLib/System.Boolean.TryParse( System.String, System.Boolean& )
+System.Private.CoreLib/System.Byte
+System.Private.CoreLib/System.Byte.TryParse( System.String, System.Byte& )
+System.Private.CoreLib/System.Byte.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.Byte& )
+System.Private.CoreLib/System.Char
+System.Private.CoreLib/System.Char.IsWhiteSpace( System.Char )
+System.Private.CoreLib/System.Char.TryParse( System.String, System.Char& )
+System.Private.CoreLib/System.Collections.Generic.Dictionary`2
+System.Private.CoreLib/System.Collections.Generic.Dictionary`2..ctor()
+System.Private.CoreLib/System.Collections.Generic.Dictionary`2.Add( TKey, TValue )
+System.Private.CoreLib/System.Collections.Generic.Dictionary`2.ContainsKey( TKey )
+System.Private.CoreLib/System.Collections.Generic.Dictionary`2.get_Item( TKey )
+System.Private.CoreLib/System.Collections.Generic.Dictionary`2.TryGetValue( TKey, TValue& )
+System.Private.CoreLib/System.Collections.Generic.IEnumerable`1
+System.Private.CoreLib/System.Collections.Generic.IEnumerable`1.GetEnumerator()
+System.Private.CoreLib/System.Collections.Generic.IEnumerator`1
+System.Private.CoreLib/System.Collections.Generic.IEnumerator`1.get_Current()
+System.Private.CoreLib/System.Collections.Generic.IReadOnlyCollection`1.get_Count()
+System.Private.CoreLib/System.Collections.Generic.IReadOnlyList`1
+System.Private.CoreLib/System.Collections.Generic.List`1
+System.Private.CoreLib/System.Collections.Generic.List`1..ctor()
+System.Private.CoreLib/System.Collections.Generic.List`1.Add( T )
+System.Private.CoreLib/System.Collections.Generic.List`1.get_Count()
+System.Private.CoreLib/System.Collections.Generic.List`1.get_Item( System.Int32 )
+System.Private.CoreLib/System.Collections.Generic.List`1.ToArray()
+System.Private.CoreLib/System.Collections.IEnumerator.MoveNext()
+System.Private.CoreLib/System.Decimal
+System.Private.CoreLib/System.Decimal.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.Decimal& )
+System.Private.CoreLib/System.Delegate
+System.Private.CoreLib/System.Delegate.Combine( System.Delegate, System.Delegate )
+System.Private.CoreLib/System.Delegate.Remove( System.Delegate, System.Delegate )
+System.Private.CoreLib/System.Diagnostics.DebuggerBrowsableAttribute
+System.Private.CoreLib/System.Diagnostics.Stopwatch..ctor()
+System.Private.CoreLib/System.Diagnostics.Stopwatch.get_ElapsedMilliseconds()
+System.Private.CoreLib/System.Double
+System.Private.CoreLib/System.Double.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.Double& )
+System.Private.CoreLib/System.Exception
+System.Private.CoreLib/System.Func`2
+System.Private.CoreLib/System.Func`2..ctor( System.Object, System.IntPtr )
+System.Private.CoreLib/System.Func`3
+System.Private.CoreLib/System.Func`3..ctor( System.Object, System.IntPtr )
+System.Private.CoreLib/System.Globalization.CultureInfo
+System.Private.CoreLib/System.Globalization.CultureInfo.get_CurrentCulture()
+System.Private.CoreLib/System.Globalization.NumberStyles
+System.Private.CoreLib/System.IDisposable.Dispose()
+System.Private.CoreLib/System.IFormatProvider
+System.Private.CoreLib/System.Int16
+System.Private.CoreLib/System.Int16.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.Int16& )
+System.Private.CoreLib/System.Int32
+System.Private.CoreLib/System.Int32.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.Int32& )
+System.Private.CoreLib/System.Int64
+System.Private.CoreLib/System.Int64.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.Int64& )
+System.Private.CoreLib/System.IntPtr
+System.Private.CoreLib/System.InvalidOperationException..ctor( System.String )
+System.Private.CoreLib/System.NotImplementedException..ctor()
+System.Private.CoreLib/System.Nullable`1
+System.Private.CoreLib/System.Nullable`1..ctor( T )
+System.Private.CoreLib/System.Nullable`1.get_HasValue()
+System.Private.CoreLib/System.Nullable`1.get_Value()
+System.Private.CoreLib/System.Object
+System.Private.CoreLib/System.Object..ctor()
+System.Private.CoreLib/System.Object.GetType()
+System.Private.CoreLib/System.Object.ToString()
+System.Private.CoreLib/System.ParamArrayAttribute
+System.Private.CoreLib/System.Reflection.Assembly
+System.Private.CoreLib/System.Reflection.Assembly.GetExecutingAssembly()
+System.Private.CoreLib/System.Reflection.Assembly.GetTypes()
+System.Private.CoreLib/System.Reflection.Assembly.op_Equality( System.Reflection.Assembly, System.Reflection.Assembly )
+System.Private.CoreLib/System.Reflection.CustomAttributeExtensions.GetCustomAttribute<T>( System.Reflection.MemberInfo )
+System.Private.CoreLib/System.Reflection.CustomAttributeExtensions.GetCustomAttributes( System.Reflection.MemberInfo )
+System.Private.CoreLib/System.Reflection.CustomAttributeExtensions.IsDefined( System.Reflection.MemberInfo, System.Type )
+System.Private.CoreLib/System.Reflection.CustomAttributeExtensions.IsDefined( System.Reflection.ParameterInfo, System.Type )
+System.Private.CoreLib/System.Reflection.MemberInfo
+System.Private.CoreLib/System.Reflection.MemberInfo.get_DeclaringType()
+System.Private.CoreLib/System.Reflection.MemberInfo.get_Name()
+System.Private.CoreLib/System.Reflection.MethodBase.GetParameters()
+System.Private.CoreLib/System.Reflection.MethodBase.Invoke( System.Object, System.Object[] )
+System.Private.CoreLib/System.Reflection.MethodInfo
+System.Private.CoreLib/System.Reflection.MethodInfo.CreateDelegate<T>( System.Object )
+System.Private.CoreLib/System.Reflection.MethodInfo.get_ReturnType()
+System.Private.CoreLib/System.Reflection.MethodInfo.op_Equality( System.Reflection.MethodInfo, System.Reflection.MethodInfo )
+System.Private.CoreLib/System.Reflection.ParameterInfo
+System.Private.CoreLib/System.Reflection.ParameterInfo.get_HasDefaultValue()
+System.Private.CoreLib/System.Reflection.ParameterInfo.get_IsIn()
+System.Private.CoreLib/System.Reflection.ParameterInfo.get_IsOut()
+System.Private.CoreLib/System.Reflection.ParameterInfo.get_Name()
+System.Private.CoreLib/System.Reflection.ParameterInfo.get_ParameterType()
+System.Private.CoreLib/System.Reflection.ParameterInfo.get_RawDefaultValue()
+System.Private.CoreLib/System.Runtime.CompilerServices.CompilerGeneratedAttribute
+System.Private.CoreLib/System.Runtime.CompilerServices.IsReadOnlyAttribute
+System.Private.CoreLib/System.RuntimeTypeHandle
+System.Private.CoreLib/System.SByte
+System.Private.CoreLib/System.SByte.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.SByte& )
+System.Private.CoreLib/System.Single
+System.Private.CoreLib/System.Single.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.Single& )
+System.Private.CoreLib/System.String
+System.Private.CoreLib/System.String.Concat( System.String, System.String )
+System.Private.CoreLib/System.String.Concat( System.String, System.String, System.String )
+System.Private.CoreLib/System.String.Concat( System.String[] )
+System.Private.CoreLib/System.String.Equals( System.String, System.StringComparison )
+System.Private.CoreLib/System.String.Format( System.String, System.Object )
+System.Private.CoreLib/System.String.Format( System.String, System.Object, System.Object )
+System.Private.CoreLib/System.String.get_Length()
+System.Private.CoreLib/System.String.IndexOf( System.String, System.StringComparison )
+System.Private.CoreLib/System.String.IsNullOrWhiteSpace( System.String )
+System.Private.CoreLib/System.String.op_Equality( System.String, System.String )
+System.Private.CoreLib/System.String.Substring( System.Int32, System.Int32 )
+System.Private.CoreLib/System.String.ToLower()
+System.Private.CoreLib/System.String.Trim()
+System.Private.CoreLib/System.StringComparison
+System.Private.CoreLib/System.Text.StringBuilder
+System.Private.CoreLib/System.Text.StringBuilder..ctor( System.String )
+System.Private.CoreLib/System.Text.StringBuilder..ctor()
+System.Private.CoreLib/System.Text.StringBuilder.Append( System.Char )
+System.Private.CoreLib/System.Text.StringBuilder.Clear()
+System.Private.CoreLib/System.Text.StringBuilder.get_Chars( System.Int32 )
+System.Private.CoreLib/System.Text.StringBuilder.get_Length()
+System.Private.CoreLib/System.Text.StringBuilder.Remove( System.Int32, System.Int32 )
+System.Private.CoreLib/System.Threading.Interlocked.CompareExchange<T>( T&, T, T )
+System.Private.CoreLib/System.Type
+System.Private.CoreLib/System.Type.get_FullName()
+System.Private.CoreLib/System.Type.get_IsGenericType()
+System.Private.CoreLib/System.Type.get_IsInterface()
+System.Private.CoreLib/System.Type.get_IsNested()
+System.Private.CoreLib/System.Type.get_IsPublic()
+System.Private.CoreLib/System.Type.GetElementType()
+System.Private.CoreLib/System.Type.GetMethods()
+System.Private.CoreLib/System.Type.GetTypeFromHandle( System.RuntimeTypeHandle )
+System.Private.CoreLib/System.Type.IsAssignableFrom( System.Type )
+System.Private.CoreLib/System.Type.IsSubclassOf( System.Type )
+System.Private.CoreLib/System.Type.op_Equality( System.Type, System.Type )
+System.Private.CoreLib/System.Type.op_Inequality( System.Type, System.Type )
+System.Private.CoreLib/System.UInt16
+System.Private.CoreLib/System.UInt16.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.UInt16& )
+System.Private.CoreLib/System.UInt32
+System.Private.CoreLib/System.UInt32.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.UInt32& )
+System.Private.CoreLib/System.UInt64
+System.Private.CoreLib/System.UInt64.TryParse( System.String, System.Globalization.NumberStyles, System.IFormatProvider, System.UInt64& )
+System.Private.CoreLib/System.Void
+System.Text.Json/System.Text.Json.JsonSerializer.Serialize<TValue>( TValue, System.Text.Json.JsonSerializerOptions )
+System.Text.Json/System.Text.Json.JsonSerializerOptions
+System.Text.Json/System.Text.Json.JsonSerializerOptions..ctor()
+System.Text.Json/System.Text.Json.JsonSerializerOptions.set_PropertyNameCaseInsensitive( System.Boolean )
+System.Text.Json/System.Text.Json.JsonSerializerOptions.set_WriteIndented( System.Boolean )
+System.Text.Json/System.Text.Json.Serialization.JsonIncludeAttribute
+System.Text.RegularExpressions/System.Text.RegularExpressions.Regex..ctor( System.String )
+System.Text.RegularExpressions/System.Text.RegularExpressions.Regex.IsMatch( System.String )

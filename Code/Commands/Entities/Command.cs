@@ -76,10 +76,11 @@ namespace Advisor.Commands.Entities
         /// </summary>
         internal MethodInfo Method { get; set; }
 
-        /// <summary>
-        /// Dynamically generated delegate from the command's MethodInfo.
-        /// </summary>
-        internal Delegate MethodDelegate { get; set; }
+        // TODO: If System.Linq.Expressions is ever wrapped/allowed, use it again.
+        // /// <summary>
+        // /// Dynamically generated delegate from the command's MethodInfo.
+        // /// </summary>
+        // internal Delegate MethodDelegate { get; set; }
         
         /// <summary>
         /// Dynamically generated delegate for commands with no more arguments than the CommandContext.

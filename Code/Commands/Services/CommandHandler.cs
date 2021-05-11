@@ -290,7 +290,7 @@ namespace Advisor.Commands.Services
 
                 try
                 {
-                    command.MethodDelegate.DynamicInvoke(objs);
+                    command.Method.Invoke(command.ParentModule, objs);
                     successArgs = new CommandExecutedArgs
                     {
                         Context = context
