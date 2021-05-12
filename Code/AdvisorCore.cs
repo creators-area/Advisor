@@ -15,7 +15,7 @@ namespace Advisor
     /// Entry point of Advisor.
     /// </summary>
     [Library("advisor", Title = "Advisor")]
-    public class AdvisorCore : Game
+    public class AdvisorCore
     {
         private CommandRegistry _commandRegistry;
         private CommandHandler _commandHandler;

@@ -6,6 +6,7 @@ using Advisor.Commands.Utils;
 using Advisor.Configuration;
 using Advisor.Utils;
 using Sandbox;
+using Sandbox.Hooks;
 
 namespace Advisor.Commands.Services
 {
@@ -33,11 +34,16 @@ namespace Advisor.Commands.Services
             _advisor = advisor;
             _commands = advisor.GetService<CommandRegistry>();
             _configService = advisor.GetService<ConfigurationService>();
+
+            Chat.OnChatMessage += args =>
+            {
+				HandleChatMessage(args.Sender, args.Message);
+            };
         }
 
         public void HandleChatMessage(Player sender, string text)
         {
-            if (string.IsNullOrWhiteSpace(text))
+	        if (string.IsNullOrWhiteSpace(text))
             {
                 return;
             }

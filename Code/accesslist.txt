@@ -1,7 +1,23 @@
+Sandbox.Game/Sandbox.Camera
+Sandbox.Game/Sandbox.ConsoleSystem.Build( System.String, System.Object[] )
+Sandbox.Game/Sandbox.Entity.get_IsClient()
+Sandbox.Game/Sandbox.Entity.get_IsServer()
+Sandbox.Game/Sandbox.Entity.set_EnableDrawing( System.Boolean )
+Sandbox.Game/Sandbox.Entity.set_EnableHideInFirstPerson( System.Boolean )
+Sandbox.Game/Sandbox.Entity.set_EnableShadowInFirstPerson( System.Boolean )
 Sandbox.Game/Sandbox.Library.Create<T>( System.Type )
+Sandbox.Game/Sandbox.ModelEntity.set_EnableAllCollisions( System.Boolean )
+Sandbox.Game/Sandbox.ModelEntity.SetModel( System.String )
 Sandbox.Game/Sandbox.Player
+Sandbox.Game/Sandbox.Player.SendCommandToClient( System.String )
+Sandbox.Game/Sandbox.PlayerAnimator
+Sandbox.Game/Sandbox.PlayerController
+Sandbox.Game/Sandbox.UI.Panel.AddChild<T>( System.String )
+Sandbox.Game/Sandbox.UI.Panel.SetTemplate( System.String )
+Sandbox.Game/Sandbox.UI.RootPanel
 Sandbox.System/Sandbox.LibraryAttribute
 Sandbox.System/Sandbox.LibraryAttribute..ctor()
+Sandbox.System/Sandbox.Log.Info( System.String )
 Sandbox.System/Sandbox.Logger
 Sandbox.System/Sandbox.Logger..ctor( System.String )
 Sandbox.System/Sandbox.Logger.Error( System.Exception, System.String )
@@ -20,6 +36,7 @@ System.Linq/System.Linq.Enumerable.ToArray<TSource>( System.Collections.Generic.
 System.Linq/System.Linq.Enumerable.ToList<TSource>( System.Collections.Generic.IEnumerable`1<TSource> )
 System.Linq/System.Linq.Enumerable.Where<TSource>( System.Collections.Generic.IEnumerable`1<TSource>, System.Func`2<TSource,System.Boolean> )
 System.Private.CoreLib/System.Action`1
+System.Private.CoreLib/System.Action`1..ctor( System.Object, System.IntPtr )
 System.Private.CoreLib/System.Action`1.Invoke( T )
 System.Private.CoreLib/System.ArgumentException..ctor( System.String )
 System.Private.CoreLib/System.ArgumentNullException..ctor( System.String )

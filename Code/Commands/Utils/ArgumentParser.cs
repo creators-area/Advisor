@@ -163,7 +163,7 @@ namespace Advisor.Commands.Utils
                             return ArgumentParserResult.FromFailure($"Failed to parse '{remainder}' into '{arg.Parameter.Name}' (expected: {arg.Converter.GetFriendlyTypeName()}).");
                         }
 
-                        objects[objects.Length] = result.Result;
+                        objects[current] = result.Result;
                         return ArgumentParserResult.FromSuccess(objects.ToArray());
                     }                    
                     

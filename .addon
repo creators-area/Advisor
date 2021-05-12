@@ -12,7 +12,7 @@
     "gamemodes": 
     [
         {
-            "name": "advisor",
+            "name": "minimal",
             "title": "Advisor Development",
             "description": "Development gamemode for the administration framework Advisor."
         }
