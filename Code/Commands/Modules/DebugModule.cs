@@ -30,5 +30,11 @@ namespace Advisor.Commands.Modules
 	        var cmd = ConsoleSystem.Build( "chat_add", "Server", text, "ui/icons/advisor.png" );
 	        ctx.Caller.SendCommandToClient(cmd);
         }
+
+        [Command( "scale", SandboxRealm.Shared )]
+        public void SetScale( CommandContext ctx, float newScale )
+        {
+	        ctx.Caller.WorldScale = newScale;
+        }
     }
 }
