@@ -1,4 +1,4 @@
-*Pour la version française: [LISEZ-MOI.MD](https://github.com/game-creators-area/Advisor/blob/master/LISEZ-MOI.MD)*
+*Pour la version française: [LISEZ-MOI.MD](https://github.com/creators-area/Advisor/blob/master/LISEZ-MOI.MD)*
 
 <p align="center">
   <img width="256" height="256" src="https://user-images.githubusercontent.com/25248023/113520130-542d8d00-9591-11eb-8104-d5abd8ecb660.png">
@@ -36,13 +36,8 @@ We'll be creating a simple to use API to give you access to the following featur
 
 ## Special Thanks
 
-This addon is under development in collaboration with the community at Game Creators Area.
+This addon is under development in collaboration with the community at Creators Area.
 
 *Do note the community there mostly speaks French.*
 
 [<img src="https://discordapp.com/api/guilds/223070469148901376/widget.png?style=banner1">](https://discord.gg/gca)
-
-Many thanks to the friendly developers at the official S&box Discord server, as well as the community S&box Modding server!
-
-[<img src="https://discordapp.com/api/guilds/833983068468936704/widget.png?style=banner1">](https://discord.gg/sbox)
-[<img src="https://discordapp.com/api/guilds/799738004439826463/widget.png?style=banner1">](https://discord.gg/K4Jv7G3WUw)
